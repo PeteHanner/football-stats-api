@@ -5,13 +5,15 @@ class GameImportWorker
   sidekiq_options retry: false
 
   # 401265703
-  # GameImportWorker.new.perform
+  # GameImportWorker.new.perform(2019, 1)
   def perform(season = nil, week = nil)
     if season.nil? || week.nil?
       last_game = Game.last
-      season = last_game.id
+      season = last_game.season
+      week = last_game.week
     end
-    # response = HTTParty.get("https://api.collegefootballdata.com/games?id=#{last_game_api_id}")
+
+    response = HTTParty.get("https://api.collegefootballdata.com/games?year=#{season}&week=#{week}")
 
     return unless response.code == 200
 
