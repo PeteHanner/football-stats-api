@@ -4,6 +4,7 @@ class Game < ApplicationRecord
 
   validates_presence_of :api_id
 
+  # 401240218
   def self.load_new_game(last_game_api_id)
     last_game_api_id ||= Game.last.api_id
     # request = https://api.collegefootballdata.com/games?id=401110722
@@ -14,10 +15,8 @@ class Game < ApplicationRecord
     # Game.load_new_game(game.api_id) if game.save
   end
 
-  def get_drive_data
+  def get_drive_data(season:, week:, team:)
     # https://api.collegefootballdata.com/drives?year=2019&week=1&team=Auburn
-    # group by team
-    # pluck driveId.uniq.length
+    # Count up offensive drives per team
   end
-
 end
