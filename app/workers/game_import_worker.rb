@@ -26,18 +26,9 @@ class GameImportWorker
 
   private
 
-  def create_game(game_data)
-    return unless game_data["home_points"].present?
-    return if Game.find_by(api_id: game_data["id"]).present?
-
-    query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{game_data["home_team"]}"
-    response = HTTParty.get(query_string)
-
-    return unless response.code == 200
-
-    binding.pry
-    game = Game.new(
-      api_id: game_data["id"],
+  def build_game_object(game_data)
+    Game.new(
+      api_ref: game_data["id"],
       away_team: game_data["away_team"],
       away_team_score: game_data["away_points"],
       home_team: game_data["home_team"],
@@ -45,15 +36,28 @@ class GameImportWorker
       season: game_data["season"],
       week: game_data["week"]
     )
+  end
+
+  def create_game(game_data)
+    return unless game_data["home_points"].present?
+    return if Game.find_by(api_ref: game_data["id"]).present?
+
+    query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
+    response = HTTParty.get(query_string)
+
+    return unless response.code == 200
+
+    game = build_game_object(game_data)
 
     drives = JSON.parse(response.body)
     game.home_team_drives, game.away_team_drives = get_drive_breakdown(drive_data: drives, home_team: game_data["home_team"])
 
-    # game.generate_stats
-    # Game.load_new_game(game.api_id) if game.save
+    game.save
   end
 
   def get_drive_breakdown(drive_data:, home_team:)
-    # Count up offensive drives per team
+    home_team_drives = drive_data.pluck("offense").count(home_team)
+    away_team_drives = drive_data.count - home_team_drives
+    [home_team_drives, away_team_drives]
   end
 end

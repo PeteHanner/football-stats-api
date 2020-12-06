@@ -8,7 +8,7 @@ class CreateGames < ActiveRecord::Migration[6.0]
       t.integer :team2_drives
       t.integer :team1_score
       t.integer :team2_score
-      t.integer :api_id
+      t.integer :api_ref
 
       t.timestamps
     end
