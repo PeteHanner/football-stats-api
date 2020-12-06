@@ -19,6 +19,8 @@ class GameCreateWorker
     game.home_team_drives, game.away_team_drives = get_drive_breakdown(drive_data: drives, home_team: game_data["home_team"])
 
     game.save
+
+    game.generate_first_order_stats
   end
 
   private
