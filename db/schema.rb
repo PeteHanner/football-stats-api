@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_230413) do
+ActiveRecord::Schema.define(version: 2020_12_07_004254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
     t.integer "season"
-    t.string "home_team"
-    t.string "away_team"
+    t.string "home_team_name"
+    t.string "away_team_name"
     t.integer "home_team_drives"
     t.integer "away_team_drives"
     t.integer "home_team_score"
@@ -30,12 +30,13 @@ ActiveRecord::Schema.define(version: 2020_12_06_230413) do
   end
 
   create_table "stats", force: :cascade do |t|
-    t.string "type"
+    t.string "name"
     t.integer "season"
     t.bigint "team_id", null: false
     t.bigint "game_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "value"
     t.index ["game_id"], name: "index_stats_on_game_id"
     t.index ["team_id"], name: "index_stats_on_team_id"
   end
