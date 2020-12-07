@@ -18,16 +18,16 @@ class Game < ApplicationRecord
     Stat.create(
       game: self,
       season: season,
-      type: "pop",
+      name: "pop",
       team: team
     )
   end
 
   def set_home_team
-    Team.find_or_create_by(name: home_team)
+    Team.find_or_create_by(name: home_team_name)
   end
 
   def set_away_team
-    Team.find_or_create_by(name: away_team)
+    Team.find_or_create_by(name: home_team_name)
   end
 end
