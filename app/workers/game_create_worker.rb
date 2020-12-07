@@ -10,16 +10,12 @@ class GameCreateWorker
 
     query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
     response = HTTParty.get(query_string)
-
     return unless response.code == 200
 
     game = build_game_object(game_data)
-
     drives = JSON.parse(response.body)
     game.home_team_drives, game.away_team_drives = get_drive_breakdown(drive_data: drives, home_team_name: game_data["home_team"])
-
     game.save
-
     game.generate_first_order_stats
   end
 
