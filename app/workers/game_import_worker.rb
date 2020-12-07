@@ -1,6 +1,5 @@
 require "httparty"
 
-# GameImportWorker.perform_async(2019, 1)
 class GameImportWorker
   include Sidekiq::Worker
   sidekiq_options retry: true, unique: :until_executed
