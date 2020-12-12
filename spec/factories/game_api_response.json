@@ -1,0 +1,901 @@
+[
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "4011107221",
+    "drive_number": 1,
+    "scoring": true,
+    "start_period": 1,
+    "start_yardline": 74,
+    "start_yards_to_goal": 74,
+    "start_time": {
+      "minutes": 15,
+      "seconds": 0
+    },
+    "end_period": 1,
+    "end_yardline": 0,
+    "end_yards_to_goal": 0,
+    "end_time": {
+      "minutes": 10,
+      "seconds": 13
+    },
+    "elapsed": {
+      "minutes": 4,
+      "seconds": 47
+    },
+    "plays": 11,
+    "yards": 74,
+    "drive_result": "TD"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "4011107222",
+    "drive_number": 2,
+    "scoring": false,
+    "start_period": 1,
+    "start_yardline": 25,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 10,
+      "seconds": 13
+    },
+    "end_period": 1,
+    "end_yardline": 27,
+    "end_yards_to_goal": 73,
+    "end_time": {
+      "minutes": 8,
+      "seconds": 34
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 39
+    },
+    "plays": 3,
+    "yards": 2,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "4011107223",
+    "drive_number": 3,
+    "scoring": false,
+    "start_period": 1,
+    "start_yardline": 44,
+    "start_yards_to_goal": 44,
+    "start_time": {
+      "minutes": 8,
+      "seconds": 34
+    },
+    "end_period": 1,
+    "end_yardline": 2,
+    "end_yards_to_goal": 2,
+    "end_time": {
+      "minutes": 4,
+      "seconds": 42
+    },
+    "elapsed": {
+      "minutes": 3,
+      "seconds": 52
+    },
+    "plays": 10,
+    "yards": 42,
+    "drive_result": "MISSED FG"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "4011107224",
+    "drive_number": 4,
+    "scoring": true,
+    "start_period": 1,
+    "start_yardline": 20,
+    "start_yards_to_goal": 80,
+    "start_time": {
+      "minutes": 4,
+      "seconds": 42
+    },
+    "end_period": 1,
+    "end_yardline": 78,
+    "end_yards_to_goal": 22,
+    "end_time": {
+      "minutes": 3,
+      "seconds": 17
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 25
+    },
+    "plays": 6,
+    "yards": 58,
+    "drive_result": "FG"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "4011107225",
+    "drive_number": 5,
+    "scoring": true,
+    "start_period": 1,
+    "start_yardline": 75,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 3,
+      "seconds": 17
+    },
+    "end_period": 1,
+    "end_yardline": 0,
+    "end_yards_to_goal": 0,
+    "end_time": {
+      "minutes": 2,
+      "seconds": 11
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 6
+    },
+    "plays": 3,
+    "yards": 75,
+    "drive_result": "TD"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "4011107226",
+    "drive_number": 6,
+    "scoring": false,
+    "start_period": 1,
+    "start_yardline": 20,
+    "start_yards_to_goal": 80,
+    "start_time": {
+      "minutes": 2,
+      "seconds": 11
+    },
+    "end_period": 2,
+    "end_yardline": 85,
+    "end_yards_to_goal": 15,
+    "end_time": {
+      "minutes": 12,
+      "seconds": 31
+    },
+    "elapsed": {
+      "minutes": 4,
+      "seconds": 40
+    },
+    "plays": 11,
+    "yards": 65,
+    "drive_result": "INT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "4011107227",
+    "drive_number": 7,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 88,
+    "start_yards_to_goal": 88,
+    "start_time": {
+      "minutes": 12,
+      "seconds": 31
+    },
+    "end_period": 2,
+    "end_yardline": 72,
+    "end_yards_to_goal": 72,
+    "end_time": {
+      "minutes": 9,
+      "seconds": 16
+    },
+    "elapsed": {
+      "minutes": 3,
+      "seconds": 15
+    },
+    "plays": 5,
+    "yards": 16,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "4011107228",
+    "drive_number": 8,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 13,
+    "start_yards_to_goal": 87,
+    "start_time": {
+      "minutes": 9,
+      "seconds": 16
+    },
+    "end_period": 2,
+    "end_yardline": 41,
+    "end_yards_to_goal": 59,
+    "end_time": {
+      "minutes": 6,
+      "seconds": 31
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 45
+    },
+    "plays": 5,
+    "yards": 28,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "4011107229",
+    "drive_number": 9,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 9,
+    "start_yards_to_goal": 9,
+    "start_time": {
+      "minutes": 6,
+      "seconds": 31
+    },
+    "end_period": 2,
+    "end_yardline": 9,
+    "end_yards_to_goal": 9,
+    "end_time": {
+      "minutes": 6,
+      "seconds": 15
+    },
+    "elapsed": {
+      "seconds": 16,
+      "minutes": 0
+    },
+    "plays": 1,
+    "yards": -5,
+    "drive_result": "FUMBLE"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072210",
+    "drive_number": 10,
+    "scoring": true,
+    "start_period": 2,
+    "start_yardline": 97,
+    "start_yards_to_goal": 3,
+    "start_time": {
+      "minutes": 6,
+      "seconds": 15
+    },
+    "end_period": 2,
+    "end_yardline": 93,
+    "end_yards_to_goal": 7,
+    "end_time": {
+      "minutes": 4,
+      "seconds": 41
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 34
+    },
+    "plays": 4,
+    "yards": -4,
+    "drive_result": "FG"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072211",
+    "drive_number": 11,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 75,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 4,
+      "seconds": 41
+    },
+    "end_period": 2,
+    "end_yardline": 80,
+    "end_yards_to_goal": 80,
+    "end_time": {
+      "minutes": 2,
+      "seconds": 5
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 36
+    },
+    "plays": 3,
+    "yards": -5,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072212",
+    "drive_number": 12,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 26,
+    "start_yards_to_goal": 74,
+    "start_time": {
+      "minutes": 2,
+      "seconds": 5
+    },
+    "end_period": 2,
+    "end_yardline": 46,
+    "end_yards_to_goal": 54,
+    "end_time": {
+      "minutes": 1,
+      "seconds": 34
+    },
+    "elapsed": {
+      "seconds": 31,
+      "minutes": 0
+    },
+    "plays": 2,
+    "yards": 20,
+    "drive_result": "INT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072213",
+    "drive_number": 13,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 75,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 1,
+      "seconds": 34
+    },
+    "end_period": 2,
+    "end_yardline": 71,
+    "end_yards_to_goal": 71,
+    "end_time": {
+      "seconds": 52,
+      "minutes": 0
+    },
+    "elapsed": {
+      "seconds": 42,
+      "minutes": 0
+    },
+    "plays": 3,
+    "yards": 4,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072214",
+    "drive_number": 14,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 74,
+    "start_yards_to_goal": 26,
+    "start_time": {
+      "seconds": 52,
+      "minutes": 0
+    },
+    "end_period": 2,
+    "end_yardline": 76,
+    "end_yards_to_goal": 24,
+    "end_time": {
+      "seconds": 8,
+      "minutes": 0
+    },
+    "elapsed": {
+      "seconds": 44,
+      "minutes": 0
+    },
+    "plays": 7,
+    "yards": 2,
+    "drive_result": "MISSED FG"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072215",
+    "drive_number": 15,
+    "scoring": false,
+    "start_period": 2,
+    "start_yardline": 76,
+    "start_yards_to_goal": 76,
+    "start_time": {
+      "seconds": 8,
+      "minutes": 0
+    },
+    "end_period": 2,
+    "end_yardline": 81,
+    "end_yards_to_goal": 81,
+    "end_time": {
+      "minutes": 0,
+      "seconds": 0
+    },
+    "elapsed": {
+      "seconds": 8,
+      "minutes": 0
+    },
+    "plays": 1,
+    "yards": -5,
+    "drive_result": "END OF HALF"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072216",
+    "drive_number": 16,
+    "scoring": false,
+    "start_period": 3,
+    "start_yardline": 25,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 15,
+      "seconds": 0
+    },
+    "end_period": 3,
+    "end_yardline": 26,
+    "end_yards_to_goal": 74,
+    "end_time": {
+      "minutes": 12,
+      "seconds": 51
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 9
+    },
+    "plays": 3,
+    "yards": 1,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072217",
+    "drive_number": 17,
+    "scoring": true,
+    "start_period": 3,
+    "start_yardline": 53,
+    "start_yards_to_goal": 53,
+    "start_time": {
+      "minutes": 12,
+      "seconds": 51
+    },
+    "end_period": 3,
+    "end_yardline": 0,
+    "end_yards_to_goal": 0,
+    "end_time": {
+      "minutes": 9,
+      "seconds": 23
+    },
+    "elapsed": {
+      "minutes": 3,
+      "seconds": 28
+    },
+    "plays": 9,
+    "yards": 53,
+    "drive_result": "TD"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072218",
+    "drive_number": 18,
+    "scoring": false,
+    "start_period": 3,
+    "start_yardline": 25,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 9,
+      "seconds": 23
+    },
+    "end_period": 3,
+    "end_yardline": 36,
+    "end_yards_to_goal": 64,
+    "end_time": {
+      "minutes": 7,
+      "seconds": 2
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 21
+    },
+    "plays": 6,
+    "yards": 11,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072219",
+    "drive_number": 19,
+    "scoring": false,
+    "start_period": 3,
+    "start_yardline": 80,
+    "start_yards_to_goal": 80,
+    "start_time": {
+      "minutes": 7,
+      "seconds": 2
+    },
+    "end_period": 3,
+    "end_yardline": 79,
+    "end_yards_to_goal": 79,
+    "end_time": {
+      "minutes": 5,
+      "seconds": 31
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 31
+    },
+    "plays": 3,
+    "yards": 1,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072220",
+    "drive_number": 20,
+    "scoring": true,
+    "start_period": 3,
+    "start_yardline": 42,
+    "start_yards_to_goal": 58,
+    "start_time": {
+      "minutes": 5,
+      "seconds": 31
+    },
+    "end_period": 3,
+    "end_yardline": 100,
+    "end_yards_to_goal": 0,
+    "end_time": {
+      "minutes": 4,
+      "seconds": 20
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 11
+    },
+    "plays": 4,
+    "yards": 58,
+    "drive_result": "TD"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072221",
+    "drive_number": 21,
+    "scoring": false,
+    "start_period": 3,
+    "start_yardline": 75,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 4,
+      "seconds": 20
+    },
+    "end_period": 3,
+    "end_yardline": 52,
+    "end_yards_to_goal": 52,
+    "end_time": {
+      "minutes": 1,
+      "seconds": 48
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 32
+    },
+    "plays": 5,
+    "yards": 23,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072222",
+    "drive_number": 22,
+    "scoring": false,
+    "start_period": 3,
+    "start_yardline": 20,
+    "start_yards_to_goal": 80,
+    "start_time": {
+      "minutes": 1,
+      "seconds": 48
+    },
+    "end_period": 4,
+    "end_yardline": 38,
+    "end_yards_to_goal": 62,
+    "end_time": {
+      "minutes": 14,
+      "seconds": 15
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 33
+    },
+    "plays": 5,
+    "yards": 18,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072223",
+    "drive_number": 23,
+    "scoring": false,
+    "start_period": 4,
+    "start_yardline": 81,
+    "start_yards_to_goal": 81,
+    "start_time": {
+      "minutes": 14,
+      "seconds": 15
+    },
+    "end_period": 4,
+    "end_yardline": 76,
+    "end_yards_to_goal": 76,
+    "end_time": {
+      "minutes": 12,
+      "seconds": 44
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 31
+    },
+    "plays": 3,
+    "yards": 5,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072224",
+    "drive_number": 24,
+    "scoring": true,
+    "start_period": 4,
+    "start_yardline": 31,
+    "start_yards_to_goal": 69,
+    "start_time": {
+      "minutes": 12,
+      "seconds": 44
+    },
+    "end_period": 4,
+    "end_yardline": 100,
+    "end_yards_to_goal": 0,
+    "end_time": {
+      "minutes": 9,
+      "seconds": 48
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 56
+    },
+    "plays": 8,
+    "yards": 69,
+    "drive_result": "TD"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072225",
+    "drive_number": 25,
+    "scoring": false,
+    "start_period": 4,
+    "start_yardline": 75,
+    "start_yards_to_goal": 75,
+    "start_time": {
+      "minutes": 9,
+      "seconds": 48
+    },
+    "end_period": 4,
+    "end_yardline": 41,
+    "end_yards_to_goal": 41,
+    "end_time": {
+      "minutes": 5,
+      "seconds": 30
+    },
+    "elapsed": {
+      "minutes": 4,
+      "seconds": 18
+    },
+    "plays": 8,
+    "yards": 33,
+    "drive_result": "DOWNS"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072226",
+    "drive_number": 26,
+    "scoring": false,
+    "start_period": 4,
+    "start_yardline": 42,
+    "start_yards_to_goal": 58,
+    "start_time": {
+      "minutes": 5,
+      "seconds": 30
+    },
+    "end_period": 4,
+    "end_yardline": 42,
+    "end_yards_to_goal": 58,
+    "end_time": {
+      "minutes": 4,
+      "seconds": 31
+    },
+    "elapsed": {
+      "seconds": 59,
+      "minutes": 0
+    },
+    "plays": 3,
+    "yards": 0,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072227",
+    "drive_number": 27,
+    "scoring": false,
+    "start_period": 4,
+    "start_yardline": 82,
+    "start_yards_to_goal": 82,
+    "start_time": {
+      "minutes": 4,
+      "seconds": 31
+    },
+    "end_period": 4,
+    "end_yardline": 69,
+    "end_yards_to_goal": 69,
+    "end_time": {
+      "minutes": 2,
+      "seconds": 14
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 17
+    },
+    "plays": 5,
+    "yards": 13,
+    "drive_result": "PUNT"
+  },
+  {
+    "offense": "Auburn",
+    "offense_conference": "SEC",
+    "defense": "Oregon",
+    "defense_conference": "Pac-12",
+    "game_id": 401110722,
+    "id": "40111072228",
+    "drive_number": 28,
+    "scoring": true,
+    "start_period": 4,
+    "start_yardline": 40,
+    "start_yards_to_goal": 60,
+    "start_time": {
+      "minutes": 2,
+      "seconds": 14
+    },
+    "end_period": 4,
+    "end_yardline": 100,
+    "end_yards_to_goal": 0,
+    "end_time": {
+      "seconds": 9,
+      "minutes": 0
+    },
+    "elapsed": {
+      "minutes": 2,
+      "seconds": 5
+    },
+    "plays": 11,
+    "yards": 60,
+    "drive_result": "TD"
+  },
+  {
+    "offense": "Oregon",
+    "offense_conference": "Pac-12",
+    "defense": "Auburn",
+    "defense_conference": "SEC",
+    "game_id": 401110722,
+    "id": "40111072229",
+    "drive_number": 29,
+    "scoring": false,
+    "start_period": 4,
+    "start_yardline": 36,
+    "start_yards_to_goal": 36,
+    "start_time": {
+      "seconds": 9,
+      "minutes": 0
+    },
+    "end_period": 4,
+    "end_yardline": 36,
+    "end_yards_to_goal": 36,
+    "end_time": {
+      "minutes": 0,
+      "seconds": 0
+    },
+    "elapsed": {
+      "seconds": 9,
+      "minutes": 0
+    },
+    "plays": 1,
+    "yards": 0,
+    "drive_result": "END OF GAME"
+  }
+]
