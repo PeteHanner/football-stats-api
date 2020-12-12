@@ -14,7 +14,7 @@ FactoryBot.define do
   factory :team do
     name { "Test University" }
 
-    factory :opponent do
+    trait :opponent do
       name { "Test State" }
     end
   end

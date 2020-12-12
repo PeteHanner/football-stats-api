@@ -2,7 +2,7 @@ require "httparty"
 
 class GameCreateWorker
   include Sidekiq::Worker
-  sidekiq_options retry: true
+  sidekiq_options retry: true, unique: :until_executed
 
   def perform(game_data)
     return unless game_data["home_points"].present?

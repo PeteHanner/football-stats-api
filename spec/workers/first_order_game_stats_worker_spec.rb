@@ -10,11 +10,14 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
 
       FirstOrderGameStatsWorker.new.perform(game.id)
 
+      home_team = Team.find_by(name: game.home_team_name)
+      away_team = Team.find_by(name: game.away_team_name)
+
       expect(Stat.where(
         game: game,
         season: game.season,
         name: "pop",
-        team: Team.find_by(name: game.home_team_name),
+        team: home_team,
         value: home_pop
       ).count).to eq(1)
 
@@ -22,7 +25,7 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
         game: game,
         season: game.season,
         name: "pdp",
-        team: Team.find_by(name: game.home_team_name),
+        team: home_team,
         value: home_pdp
       ).count).to eq(1)
 
@@ -30,7 +33,7 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
         game: game,
         season: game.season,
         name: "pop",
-        team: Team.find_by(name: game.away_team_name),
+        team: away_team,
         value: away_pop
       ).count).to eq(1)
 
@@ -38,9 +41,19 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
         game: game,
         season: game.season,
         name: "pdp",
-        team: Team.find_by(name: game.away_team_name),
+        team: away_team,
         value: away_pdp
       ).count).to eq(1)
+    end
+
+    it "calls FirstOrderSeasonStatsWorker when complete" do
+      home_team = create(:team)
+      away_team = create(:team, :opponent)
+      game = create(:game, home_team_name: home_team.name, away_team_name: away_team.name)
+
+      expect(FirstOrderSeasonStatsWorker).to receive(:perform_async).with(game.season, home_team.id, away_team.id)
+
+      FirstOrderGameStatsWorker.new.perform(game.id)
     end
 
     it "logs error and returns safely if no game found" do
