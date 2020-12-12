@@ -18,4 +18,12 @@ FactoryBot.define do
       name { "Test State" }
     end
   end
+
+  factory :stat do
+    association :game
+    association :team
+    name { "pop" }
+    season { 2019 }
+    value { 1.5 }
+  end
 end
