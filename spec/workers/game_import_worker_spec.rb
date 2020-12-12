@@ -12,7 +12,14 @@ RSpec.describe GameImportWorker, type: :worker do
       GameImportWorker.new.perform(0, 0)
     end
 
-    it "also checks next week + first week of next season if no arguments provided"
+    it "also checks next week + first week of next season if no arguments provided" do
+      create(:game, season: 1, week: 1)
+
+      expect(GameImportWorker).to receive(:perform_async).with(1, 2)
+      expect(GameImportWorker).to receive(:perform_async).with(2, 1)
+
+      GameImportWorker.new.perform
+    end
 
     it "logs error and safely exits if API query fails"
   end

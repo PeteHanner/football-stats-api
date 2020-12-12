@@ -31,8 +31,8 @@ class GameImportWorker
     if @season.nil? || @week.nil?
       last_game = Game.last
       @season, @week = last_game.season, last_game.week
-      GameImportWorker.perform_async(season, week + 1)
-      GameImportWorker.perform_async(season + 1, 1)
+      GameImportWorker.perform_async(@season, @week + 1)
+      GameImportWorker.perform_async(@season + 1, 1)
     end
   end
 end
