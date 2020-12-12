@@ -10,4 +10,12 @@ FactoryBot.define do
     season { 2019 }
     week { 1 }
   end
+
+  factory :team do
+    name { "Test University" }
+
+    factory :opponent do
+      name { "Test State" }
+    end
+  end
 end

@@ -5,7 +5,8 @@ class GameImportWorker
   sidekiq_options retry: true, unique: :until_executed
 
   def perform(season = nil, week = nil)
-    # Unless specified, get any new games from same + next week as last successfully imported game
+    # Unless specified, continue getting new games from same week as last successfully imported game
+    # Also begin checking for new games from week following last successfully imported game
     # Also check if new season has begun and begin importing from there if applicable
     if season.nil? || week.nil?
       last_game = Game.last
