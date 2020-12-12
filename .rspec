@@ -1,2 +1,2 @@
 --require spec_helper
-rspec -fd
+rspec -fd --order rand
