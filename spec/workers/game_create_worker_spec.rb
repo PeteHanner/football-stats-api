@@ -10,7 +10,7 @@ RSpec.describe GameCreateWorker, type: :worker do
     end
 
     it "will not create a duplicate game" do
-      game = create(:game, api_ref: 1)
+      create(:game, api_ref: 1)
       games = load_json_file("spec/factories/games_api_response.json")
       games[0]["id"] = 1
       GameCreateWorker.new.perform(games[0])
