@@ -43,6 +43,12 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
       ).count).to eq(1)
     end
 
-    it "logs error and returns safely if no game found"
+    it "logs error and returns safely if no game found" do
+      bad_id = Game.all.count + 1
+
+      expect(Rails.logger).to receive(:error).with("FirstOrderGameStatsWorker unable to find Game ID #{bad_id}")
+
+      FirstOrderGameStatsWorker.new.perform(bad_id)
+    end
   end
 end
