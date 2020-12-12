@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'standard'
 gem 'awesome_print'
 gem 'pry-rails'
+gem 'pry-nav'
 gem 'httparty'
 gem 'sidekiq'
 
