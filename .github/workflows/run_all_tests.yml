@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ env.RUBY_VERSION }}
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
         - name: Install postgres client
         run: sudo apt-get install libpq-dev
         - name: Install dependencies
