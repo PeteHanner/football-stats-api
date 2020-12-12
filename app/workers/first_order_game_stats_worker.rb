@@ -3,7 +3,11 @@ class FirstOrderGameStatsWorker
 
   def perform(game_id)
     @game = Game.find_by(id: game_id)
-    return if @game.nil?
+
+    if @game.nil?
+      Rails.logger.error("FirstOrderGameStatsWorker unable to find Game ID #{game_id}")
+      return false
+    end
 
     home_team = set_home_team
     away_team = set_away_team
