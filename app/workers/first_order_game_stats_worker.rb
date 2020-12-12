@@ -10,8 +10,8 @@ class FirstOrderGameStatsWorker
       return false
     end
 
-    home_team = set_home_team
-    away_team = set_away_team
+    home_team = Team.find_or_create_by(name: @game.home_team_name)
+    away_team = Team.find_or_create_by(name: @game.away_team_name)
 
     set_pop(team: home_team, is_home_team: true)
     set_pdp(team: home_team, is_home_team: true)
@@ -55,13 +55,5 @@ class FirstOrderGameStatsWorker
       team: team,
       value: pdp
     )
-  end
-
-  def set_home_team
-    Team.find_or_create_by(name: @game.home_team_name)
-  end
-
-  def set_away_team
-    Team.find_or_create_by(name: @game.away_team_name)
   end
 end
