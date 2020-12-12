@@ -10,3 +10,4 @@ class Team < ApplicationRecord
     stats.where(name: "pdp", season: season)
   end
 end
+
