@@ -1,25 +1,12 @@
 name: Run RSpec Tests
-env:
-  RUBY_VERSION: 2.7.2
 on: [push, pull_request]
 jobs:
   rspec-test:
     name: RSpec
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-        - name: Install postgres client
-        run: sudo apt-get install libpq-dev
-        - name: Install dependencies
-        run: |
-        gem install bundler
-        bundler install
-        - name: Create database
-        run: |
-        bundler exec rails db:create RAILS_ENV=test
-        bundler exec rails db:migrate RAILS_ENV=test
-        - name: Run tests
-        run: bundler exec rake
+    runs-on: ubuntu-latest
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+      RAILS_ENV: test
+      run:
+        bundle exec rspec
