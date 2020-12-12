@@ -15,7 +15,7 @@ class FirstOrderGameStatsWorker
 
     set_pop_and_pdp
 
-    FirstOrderSeasonStatsWorker.perform_async(@game.season, home_team.id, away_team.id)
+    FirstOrderSeasonStatsWorker.perform_async(@game.season, @home_team.id, @away_team.id)
   end
 
   private
