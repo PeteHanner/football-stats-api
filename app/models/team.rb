@@ -2,7 +2,7 @@ class Team < ApplicationRecord
   has_many :stats
   has_many :games, through: :stats
 
-  def apdp(season, overwrite = false)
+  def apdp(season:, overwrite: false)
     # Average Points per Defensive Possession
     # Sum of all PDP scores ÷ games played
     # How good is your defense on average?

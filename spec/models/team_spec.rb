@@ -15,12 +15,12 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pdp", season: 2000, value: 5)
       create(:stat, team: team, name: "pdp", season: 2000, value: 3)
 
-      team.apdp(2000, true)
+      team.apdp(season: 2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
 
       create(:stat, team: team, name: "pdp", season: 2000, value: 1)
-      team.apdp(2000, true)
+      team.apdp(season: 2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(3)
     end
@@ -32,7 +32,7 @@ RSpec.describe Team, type: :model do
 
       expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(nil)
 
-      team.apdp(2000, true)
+      team.apdp(season: 2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
     end
@@ -42,12 +42,12 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pdp", season: 2000, value: 5)
       create(:stat, team: team, name: "pdp", season: 2000, value: 3)
 
-      team.apdp(2000, true)
+      team.apdp(season: 2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
 
       create(:stat, team: team, name: "pdp", season: 2000, value: 1)
-      team.apdp(2000)
+      team.apdp(season: 2000)
 
       expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
     end
@@ -67,12 +67,12 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pop", season: 2000, value: 5)
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
 
-      team.apop(2000, true)
+      team.apop(2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
 
       create(:stat, team: team, name: "pop", season: 2000, value: 1)
-      team.apop(2000, true)
+      team.apop(2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(3)
     end
@@ -84,7 +84,7 @@ RSpec.describe Team, type: :model do
 
       expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(nil)
 
-      team.apop(2000, true)
+      team.apop(2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
     end
@@ -94,7 +94,7 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pop", season: 2000, value: 5)
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
 
-      team.apop(2000, true)
+      team.apop(2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
 

@@ -10,9 +10,8 @@ class FirstOrderSeasonStatsWorker
 
       next unless team.present?
 
-      # 'true' arg forces overwrite
-      team.apdp(season, true)
-      team.apop(season, true)
+      team.apdp(season: season, overwrite: true)
+      team.apop(season: season, overwrite: true)
     end
   end
 end
