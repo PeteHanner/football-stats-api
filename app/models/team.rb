@@ -4,14 +4,8 @@ class Team < ApplicationRecord
 
   def apop(season, overwrite = false)
     # Average Points per Offensive Possession
-    if overwrite
-      Rails.cache.fetch("#{name}/APOP/#{season}", force: true, expires_in: 1.day) do
-        calculate_apop(season)
-      end
-    else
-      Rails.cache.fetch("#{name}/APOP/#{season}", expires_in: 1.day) do
-        calculate_apop(season)
-      end
+    Rails.cache.fetch("#{name}/APOP/#{season}", force: overwrite, expires_in: 1.day) do
+      calculate_apop(season)
     end
   end
 
