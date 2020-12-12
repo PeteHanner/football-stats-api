@@ -1,5 +1,6 @@
 class FirstOrderGameStatsWorker
   include Sidekiq::Worker
+  sidekiq_options retry: true, unique: :until_executed
 
   def perform(game_id)
     @game = Game.find_by(id: game_id)
@@ -16,6 +17,8 @@ class FirstOrderGameStatsWorker
     set_pdp(team: home_team, is_home_team: true)
     set_pop(team: away_team, is_home_team: false)
     set_pdp(team: away_team, is_home_team: false)
+
+    FirstOrderSeasonStatsWorker.perform_async([home_team.id, away_team.id])
   end
 
   private
