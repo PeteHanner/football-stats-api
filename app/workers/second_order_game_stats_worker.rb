@@ -19,6 +19,17 @@ class SecondOrderGameStatsWorker
 
       opr_value = 100 * (pop / opponent.apdp)
       dpr_value = 100 * (opponent.apop / pdp)
+
+      opr.value = opr_value
+      dpr.value = dpr_value
+
+      begin
+        opr.save!
+        dpr.save!
+      rescue => exception
+        Rails.logger.error("SecondOrderGameStatsWorker encountered error processing stats for team #{team_id} on game #{game.id}: #{exception}")
+        return false
+      end
     end
   end
 
