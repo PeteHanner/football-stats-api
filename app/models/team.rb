@@ -11,7 +11,7 @@ class Team < ApplicationRecord
     end
   end
 
-  def apop(season, overwrite = false)
+  def apop(season:, overwrite: false)
     # Average Points per Offensive Possession
     # Sum of all POP scores ÷ games played
     # How good is your offense on average?
