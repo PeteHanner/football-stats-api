@@ -11,21 +11,22 @@ class SecondOrderGameStatsWorker
     end
 
     @team.games.each do |game|
-      write_or_overwrite_stats(game)
+      @game = game
+      write_or_overwrite_stats(@game)
     end
   end
 
   private
 
   def caclculate_dpr_value
-    pdp = Stat.find_by(name: "pdp", game_id: game.id, team_id: @team.id).value
-    opponent = set_opponent(game, team.name)
+    pdp = Stat.find_by(name: "pdp", game_id: @game.id, team_id: @team.id).value
+    opponent = set_opponent(@game, team.name)
     100 * (opponent.apop / pdp)
   end
 
   def caclculate_opr_value
-    pop = Stat.find_by(name: "pop", game_id: game.id, team_id: @team.id).value
-    opponent = set_opponent(game, team.name)
+    pop = Stat.find_by(name: "pop", game_id: @game.id, team_id: @team.id).value
+    opponent = set_opponent(@game, team.name)
     100 * (pop / opponent.apdp)
   end
 
