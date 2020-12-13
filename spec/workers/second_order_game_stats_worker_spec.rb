@@ -1,4 +1,6 @@
 require 'rails_helper'
 RSpec.describe SecondOrderGameStatsWorker, type: :worker do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#perform" do
+    it "logs error and returns safely if team not found"
+  end
 end

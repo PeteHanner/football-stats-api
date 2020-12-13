@@ -5,7 +5,7 @@ class GameCreateWorker
   sidekiq_options retry: true, unique: :until_executed
 
   def perform(game_data)
-    return unless game_data["home_points"].present?
+    return if game_data["home_points"].blank?
     return if Game.find_by(api_ref: game_data["id"]).present?
 
     game = build_game_object(game_data)
