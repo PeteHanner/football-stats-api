@@ -11,15 +11,15 @@ class SecondOrderGameStatsWorker
     end
 
     team.games.each do |game|
-      opr = set_opr(game.id, team_id)
-      dpr = set_dpr(game.id, team_id)
+      opr = set_opr_object(game.id, team_id)
+      dpr = set_dpr_object(game.id, team_id)
       opponent = set_opponent(game, team.name)
     end
   end
 
   private
 
-  def set_opr(game_id, team_id)
+  def set_opr_object(game_id, team_id)
     Stat.find_or_create_by(
       game_id: game_id,
       name: "opr",
@@ -27,7 +27,7 @@ class SecondOrderGameStatsWorker
     )
   end
 
-  def set_dpr(game_id, team_id)
+  def set_dpr_object(game_id, team_id)
     Stat.find_or_create_by(
       game_id: game_id,
       name: "dpr",
