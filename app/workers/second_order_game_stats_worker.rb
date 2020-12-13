@@ -13,14 +13,19 @@ class SecondOrderGameStatsWorker
     team.games.each do |game|
       opr = set_opr_object(game.id, team_id)
       dpr = set_dpr_object(game.id, team_id)
+      pop = Stat.find_by(name: "pop", game_id: game.id, team_id: team_id).value
+      pdp = Stat.find_by(name: "pdp", game_id: game.id, team_id: team_id).value
       opponent = set_opponent(game, team.name)
+
+      opr_value = 100 * (pop / opponent.apdp)
+      dpr_value = 100 * (opponent.apop / pdp)
     end
   end
 
   private
 
   def set_opr_object(game_id, team_id)
-    Stat.find_or_create_by(
+    Stat.find_or_initialize_by(
       game_id: game_id,
       name: "opr",
       team_id: team_id
@@ -28,7 +33,7 @@ class SecondOrderGameStatsWorker
   end
 
   def set_dpr_object(game_id, team_id)
-    Stat.find_or_create_by(
+    Stat.find_or_initialize_by(
       game_id: game_id,
       name: "dpr",
       team_id: team_id
