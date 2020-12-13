@@ -35,7 +35,6 @@ RSpec.describe FirstOrderSeasonStatsWorker, type: :worker do
       expect { FirstOrderSeasonStatsWorker.new.perform(2000, team1.id, bad_id) }.not_to raise_error
       expect(team1.apdp(season: 2000)).to eq(2)
       expect(team1.apop(season: 2000)).to eq(3)
-
     end
   end
 end
