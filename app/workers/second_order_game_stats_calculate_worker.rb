@@ -4,7 +4,7 @@ class SecondOrderGameStatsCalculateWorker
 
   def perform(team_id, game_id)
     @team = Team.find_by(id: team_id)
-    @game = game
+    @game = Game.find_by(id: game_id)
     @opponent = set_opponent
     write_or_overwrite_stats
   end
@@ -13,12 +13,12 @@ class SecondOrderGameStatsCalculateWorker
 
   def caclculate_dpr_value
     pdp = Stat.find_by(name: "pdp", game_id: @game.id, team_id: @team.id).value
-    100 * (@opponent.apop / pdp)
+    100 * (@opponent.apop(season: @game.season) / pdp)
   end
 
   def caclculate_opr_value
     pop = Stat.find_by(name: "pop", game_id: @game.id, team_id: @team.id).value
-    100 * (pop / @opponent.apdp)
+    100 * (pop / @opponent.apdp(season: @game.season))
   end
 
   def set_dpr_object
@@ -38,7 +38,7 @@ class SecondOrderGameStatsCalculateWorker
   end
 
   def set_opponent
-    name = [@game.home_team_name, @game.away_team_name].reject(@team.name)
+    name = ([@game.home_team_name, @game.away_team_name] - [@team.name]).first
     Team.find_by(name: name)
   end
 
