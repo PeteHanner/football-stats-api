@@ -12,6 +12,8 @@ class FirstOrderSeasonStatsWorker
 
       team.apdp(season: season, overwrite: true)
       team.apop(season: season, overwrite: true)
+
+      SecondOrderGameStatsWorker.perform_async(season, team.id)
     end
   end
 end
