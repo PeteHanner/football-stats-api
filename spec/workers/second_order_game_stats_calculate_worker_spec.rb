@@ -1,4 +1,5 @@
-require 'rails_helper'
+require "rails_helper"
+
 RSpec.describe SecondOrderGameStatsCalculateWorker, type: :worker do
   describe "#perform" do
     it "sets a teams OPR and DPR for a given game" do
