@@ -52,7 +52,7 @@ class SecondOrderGameStatsCalculateWorker
       opr.save!
       dpr.save!
     rescue => exception
-      Rails.logger.error("SecondOrderGameStatsWorker encountered error processing stats for team #{team_id} on game #{game.id}: #{exception}")
+      Rails.logger.error("SecondOrderGameStatsWorker encountered error processing stats for team #{@team.id} on game #{@game.id}: #{exception}")
     end
   end
 end
