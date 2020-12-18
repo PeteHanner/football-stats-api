@@ -7,6 +7,7 @@ class SecondOrderGameStatsCalculateWorker
     @game = Game.find_by(id: game_id)
     @opponent = set_opponent
     write_or_overwrite_stats
+    SecondOrderGameStatsWorker.perform_async(@game.season, @opponent.id)
   end
 
   private
