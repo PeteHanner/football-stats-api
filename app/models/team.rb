@@ -6,7 +6,7 @@ class Team < ApplicationRecord
     # Average Points per Defensive Possession
     # Sum of all PDP scores ÷ games played
     # How good is your defense on average?
-    Rails.cache.fetch("#{name}/apdp/#{season}", force: overwrite, expires_in: 1.day) do
+    Rails.cache.fetch("#{name.parameterize}/apdp/#{season}", force: overwrite, expires_in: 1.day) do
       calculate_apdp(season)
     end
   end
@@ -15,7 +15,7 @@ class Team < ApplicationRecord
     # Average Points per Offensive Possession
     # Sum of all POP scores ÷ games played
     # How good is your offense on average?
-    Rails.cache.fetch("#{name}/apop/#{season}", force: overwrite, expires_in: 1.day) do
+    Rails.cache.fetch("#{name.parameterize}/apop/#{season}", force: overwrite, expires_in: 1.day) do
       calculate_apop(season)
     end
   end

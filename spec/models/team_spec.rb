@@ -17,12 +17,12 @@ RSpec.describe Team, type: :model do
 
       team.apdp(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apdp/2000")).to eq(4)
 
       create(:stat, team: team, name: "pdp", season: 2000, value: 1)
       team.apdp(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(3)
+      expect(Rails.cache.read("#{team.name.parameterize}/apdp/2000")).to eq(3)
     end
 
     it "writes to the cache if no key exists" do
@@ -30,11 +30,11 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pdp", season: 2000, value: 5)
       create(:stat, team: team, name: "pdp", season: 2000, value: 3)
 
-      expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(nil)
+      expect(Rails.cache.read("#{team.name.parameterize}/apdp/2000")).to eq(nil)
 
       team.apdp(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apdp/2000")).to eq(4)
     end
 
     it "does not write to the cache if the key exists & not forced" do
@@ -44,12 +44,12 @@ RSpec.describe Team, type: :model do
 
       team.apdp(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apdp/2000")).to eq(4)
 
       create(:stat, team: team, name: "pdp", season: 2000, value: 1)
       team.apdp(season: 2000)
 
-      expect(Rails.cache.read("#{team.name}/apdp/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apdp/2000")).to eq(4)
     end
   end
 
@@ -69,12 +69,12 @@ RSpec.describe Team, type: :model do
 
       team.apop(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
 
       create(:stat, team: team, name: "pop", season: 2000, value: 1)
       team.apop(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(3)
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(3)
     end
 
     it "writes to the cache if no key exists" do
@@ -82,11 +82,11 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pop", season: 2000, value: 5)
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
 
-      expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(nil)
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(nil)
 
       team.apop(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
     end
 
     it "does not write to the cache if the key exists & not forced" do
@@ -96,12 +96,12 @@ RSpec.describe Team, type: :model do
 
       team.apop(season: 2000, overwrite: true)
 
-      expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
 
       create(:stat, team: team, name: "pop", season: 2000, value: 1)
       team.apop(season: 2000)
 
-      expect(Rails.cache.read("#{team.name}/apop/2000")).to eq(4)
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
     end
   end
 
