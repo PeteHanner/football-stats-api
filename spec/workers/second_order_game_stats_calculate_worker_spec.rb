@@ -35,5 +35,19 @@ RSpec.describe SecondOrderGameStatsCalculateWorker, type: :worker do
 
       SecondOrderGameStatsCalculateWorker.new.perform(team.id, game.id)
     end
+
+    it "calls SecondOrderGameStatsWorker on the opposing team" do
+      team = create(:team)
+      opponent = create(:team, :opponent)
+      game = create(:game, home_team_name: team.name, away_team_name: opponent.name, season: 2000)
+      create(:stat, name: "pop", team: team, game: game, value: 3)
+      create(:stat, name: "pdp", team: team, game: game, value: 4)
+      allow_any_instance_of(Team).to receive(:apdp).and_return(2.5)
+      allow_any_instance_of(Team).to receive(:apop).and_return(5)
+
+      expect(SecondOrderGameStatsWorker).to receive(:perform_async).with(2000, opponent.id)
+
+      SecondOrderGameStatsCalculateWorker.new.perform(team.id, game.id)
+    end
   end
 end
