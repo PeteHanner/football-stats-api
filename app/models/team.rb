@@ -11,6 +11,15 @@ class Team < ApplicationRecord
     end
   end
 
+  def aopr(season:, overwrite: false)
+    # Average Defensive Performance Ratio
+    # Sum of all OPR scores ÷ games played
+    # By what percentage is your offense usually better than all your opponents' faced offenses?
+    Rails.cache.fetch("#{name.parameterize}/aopr/#{season}", force: overwrite, expires_in: 6.hours) do
+      calculate_aopr(season)
+    end
+  end
+
   def apdp(season:, overwrite: false)
     # Average Points per Defensive Possession
     # Sum of all PDP scores ÷ games played
@@ -35,6 +44,12 @@ class Team < ApplicationRecord
     total_dpr / games_played
   end
 
+  def calculate_aopr(season)
+    total_opr = opr_over_season(season).pluck(:value).sum
+    games_played = opr_over_season(season).count
+    total_opr / games_played
+  end
+
   def calculate_apdp(season)
     total_pdp = pdp_over_season(season).pluck(:value).sum
     games_played = pdp_over_season(season).count
@@ -49,6 +64,10 @@ class Team < ApplicationRecord
 
   def dpr_over_season(season)
     stats.where(name: "dpr", season: season)
+  end
+
+  def opr_over_season(season)
+    stats.where(name: "opr", season: season)
   end
 
   def pdp_over_season(season)
