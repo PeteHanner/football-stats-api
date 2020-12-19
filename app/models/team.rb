@@ -63,18 +63,18 @@ class Team < ApplicationRecord
   end
 
   def dpr_over_season(season)
-    stats.where(name: "dpr", season: season)
+    stats.dpr.where(season: season)
   end
 
   def opr_over_season(season)
-    stats.where(name: "opr", season: season)
+    stats.opr.where(season: season)
   end
 
   def pdp_over_season(season)
-    stats.where(name: "pdp", season: season)
+    stats.pdp.where(season: season)
   end
 
   def pop_over_season(season)
-    stats.where(name: "pop", season: season)
+    stats.pop.where(season: season)
   end
 end
