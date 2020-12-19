@@ -12,21 +12,33 @@ class SecondOrderGameStatsCalculateWorker
 
   private
 
-  def caclculate_dpr_value
+  def calculate_dpr_value
+    # Defensive Performance Ratio
+    # By what percentage was your defense better/worse than the others your opponent has faced on the season?
     pdp = Stat.find_by(name: "pdp", game_id: @game.id, team_id: @team.id).value
-    100 * (@opponent.apop(season: @game.season) / pdp)
+
+    return 10000.0 if pdp == 0
+
+    100.0 * (@opponent.apop(season: @game.season) / pdp)
   end
 
-  def caclculate_opr_value
+  def calculate_opr_value
+    # Offensive Performance Ratio
+    # By what percentage was your offense better/worse than the others your opponent has faced on the season?
     pop = Stat.find_by(name: "pop", game_id: @game.id, team_id: @team.id).value
-    100 * (pop / @opponent.apdp(season: @game.season))
+    opponent_apdp = @opponent.apdp(season: @game.season)
+
+    return 10000.0 if opponent_apdp == 0
+
+    100.0 * (pop / opponent_apdp)
   end
 
   def set_dpr_object
     Stat.find_or_initialize_by(
       game_id: @game.id,
       name: "dpr",
-      team_id: @team.id
+      team_id: @team.id,
+      season: @game.season
     )
   end
 
@@ -34,7 +46,8 @@ class SecondOrderGameStatsCalculateWorker
     Stat.find_or_initialize_by(
       game_id: @game.id,
       name: "opr",
-      team_id: @team.id
+      team_id: @team.id,
+      season: @game.season
     )
   end
 
@@ -46,8 +59,8 @@ class SecondOrderGameStatsCalculateWorker
   def write_or_overwrite_stats
     opr = set_opr_object
     dpr = set_dpr_object
-    opr.value = caclculate_opr_value
-    dpr.value = caclculate_dpr_value
+    opr.value = calculate_opr_value
+    dpr.value = calculate_dpr_value
 
     begin
       opr.save!

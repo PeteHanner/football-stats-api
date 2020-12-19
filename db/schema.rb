@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_014424) do
+ActiveRecord::Schema.define(version: 2020_12_19_210859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_12_07_014424) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "week"
+    t.index ["api_ref", "away_team_name", "home_team_name", "season", "week"], name: "game_unique_index", unique: true
   end
 
   create_table "stats", force: :cascade do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_12_07_014424) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "value"
+    t.index ["game_id", "name", "season", "team_id"], name: "index_stats_on_game_id_and_name_and_season_and_team_id", unique: true
     t.index ["game_id"], name: "index_stats_on_game_id"
     t.index ["team_id"], name: "index_stats_on_team_id"
   end

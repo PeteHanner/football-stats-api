@@ -84,7 +84,7 @@ RSpec.describe Team, type: :model do
 
       expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(nil)
 
-      team.apop(season: 2000, overwrite: true)
+      team.apop(season: 2000)
 
       expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
     end
@@ -94,7 +94,7 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pop", season: 2000, value: 5)
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
 
-      team.apop(season: 2000, overwrite: true)
+      team.apop(season: 2000)
 
       expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
 
@@ -102,6 +102,60 @@ RSpec.describe Team, type: :model do
       team.apop(season: 2000)
 
       expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(4)
+
+      team.apop(season: 2000, overwrite: true)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/apop/2000")).to eq(3)
+    end
+  end
+
+  describe "#appd" do
+    let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+    let(:cache) { Rails.cache }
+
+    before do
+      allow(Rails).to receive(:cache).and_return(memory_store)
+      Rails.cache.clear
+    end
+
+    it "provides the difference between APOP and APDP in a given season" do
+      team = create(:team)
+      allow_any_instance_of(Team).to receive(:apop).and_return(5)
+      allow_any_instance_of(Team).to receive(:apdp).and_return(3)
+
+      expect(team.appd(season: 2000)).to eq(2)
+    end
+
+    it "only calculates the specified season" do
+      team = create(:team)
+      allow_any_instance_of(Team).to receive(:apop).with(season: 2000, overwrite: true).and_return(5)
+      allow_any_instance_of(Team).to receive(:apdp).with(season: 2000, overwrite: true).and_return(3)
+      allow_any_instance_of(Team).to receive(:apop).with(season: 2001, overwrite: true).and_return(6)
+      allow_any_instance_of(Team).to receive(:apdp).with(season: 2001, overwrite: true).and_return(3)
+
+      expect(team.appd(season: 2000)).to eq(2)
+      expect(team.appd(season: 2001)).to eq(3)
+    end
+
+    it "provides a cached value if not overwritten/expired" do
+      team = create(:team)
+      create(:stat, team: team, name: "pop", season: 2000, value: 2)
+      create(:stat, team: team, name: "pdp", season: 2000, value: 1)
+      create(:stat, team: team, name: "pop", season: 2000, value: 3)
+      create(:stat, team: team, name: "pdp", season: 2000, value: 1)
+
+      team.appd(season: 2000)
+      expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(1.5)
+
+      create(:stat, team: team, name: "pop", season: 2000, value: 5)
+      create(:stat, team: team, name: "pdp", season: 2000, value: 2)
+      team.appd(season: 2000)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(1.5)
+
+      team.appd(season: 2000, overwrite: true)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(2)
     end
   end
 
