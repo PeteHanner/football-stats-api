@@ -6,7 +6,7 @@ class Team < ApplicationRecord
     # Average Defensive Performance Ratio
     # Sum of all DPR scores ÷ games played
     # By what percentage is your defense usually better than all your opponents' faced defenses?
-    cache_key = "#{name.parameterize}/aopr/#{season}"
+    cache_key = "#{name.parameterize}/adpr/#{season}"
     Rails.cache.fetch(cache_key, force: overwrite, expires_in: 6.hours) do
       calculate_adpr(season)
     end

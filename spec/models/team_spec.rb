@@ -1,6 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
+  describe "#adpr" do
+    let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+    let(:cache) { Rails.cache }
+
+    before do
+      allow(Rails).to receive(:cache).and_return(memory_store)
+      Rails.cache.clear
+    end
+
+    it "returns sum of all OPR scores ÷ number of games played" do
+      team = create(:team)
+      create(:stat, team: team, name: "dpr", value: 5, season: 2000)
+      create(:stat, team: team, name: "dpr", value: 3, season: 2000)
+
+      expect(team.adpr(season: 2000)).to eq(4)
+    end
+
+    it "returns a cached value if no overwrite specified" do
+      team = create(:team)
+      create(:stat, team: team, name: "dpr", value: 5, season: 2000)
+      create(:stat, team: team, name: "dpr", value: 3, season: 2000)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/adpr/2000")).to eq(nil)
+
+      team.adpr(season: 2000)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/adpr/2000")).to eq(4)
+
+      create(:stat, team: team, name: "dpr", value: 1, season: 2000)
+      team.adpr(season: 2000)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/adpr/2000")).to eq(4)
+
+      team.adpr(season: 2000, overwrite: true)
+      expect(Rails.cache.read("#{team.name.parameterize}/adpr/2000")).to eq(3)
+    end
+  end
+
   describe "#apdp" do
     let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
     let(:cache) { Rails.cache }
@@ -143,6 +181,8 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pdp", season: 2000, value: 1)
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
       create(:stat, team: team, name: "pdp", season: 2000, value: 1)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(nil)
 
       team.appd(season: 2000)
       expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(1.5)
