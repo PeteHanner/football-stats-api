@@ -29,7 +29,7 @@ RSpec.describe SecondOrderGameStatsCalculateWorker, type: :worker do
       create(:stat, name: "pdp", team: team, game: game, value: 4)
       allow_any_instance_of(Team).to receive(:apdp).and_return(2.5)
       allow_any_instance_of(Team).to receive(:apop).and_return(5)
-      Stat.any_instance.stub(:save!) { raise StandardError, "ERROR MESSAGE" }
+      allow_any_instance_of(Stat).to receive(:save!).and_raise(StandardError, "ERROR MESSAGE")
 
       expect(Rails.logger).to receive(:error).with("SecondOrderGameStatsWorker encountered error processing stats for team #{team.id} on game #{game.id}: ERROR MESSAGE")
 
