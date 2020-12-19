@@ -26,11 +26,11 @@ class SecondOrderGameStatsCalculateWorker
     # Offensive Performance Ratio
     # By what percentage was your offense better/worse than the others your opponent has faced on the season?
     pop = Stat.find_by(name: "pop", game_id: @game.id, team_id: @team.id).value
-    opponent_apdp = opponent.apdp(season: @game.season)
+    opponent_apdp = @opponent.apdp(season: @game.season)
 
     return 10000.0 if opponent_apdp == 0
 
-    100.0 * (pop / @opponent_apdp)
+    100.0 * (pop / opponent_apdp)
   end
 
   def set_dpr_object
