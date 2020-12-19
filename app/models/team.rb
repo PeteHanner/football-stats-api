@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
   has_many :stats
-  has_many :games, through: :stats
+  has_many :games, -> { distinct }, through: :stats
 
   def adpr(season:, overwrite: false)
     # Average Defensive Performance Ratio

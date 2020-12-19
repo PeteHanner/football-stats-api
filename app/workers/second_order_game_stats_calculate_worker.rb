@@ -16,14 +16,14 @@ class SecondOrderGameStatsCalculateWorker
     # Defensive Performance Ratio
     # By what percentage was your defense better/worse than the others your opponent has faced on the season?
     pdp = Stat.find_by(name: "pdp", game_id: @game.id, team_id: @team.id).value
-    100 * (@opponent.apop(season: @game.season) / pdp)
+    100.0 * (@opponent.apop(season: @game.season) / pdp)
   end
 
   def caclculate_opr_value
     # Offensive Performance Ratio
     # By what percentage was your offense better/worse than the others your opponent has faced on the season?
     pop = Stat.find_by(name: "pop", game_id: @game.id, team_id: @team.id).value
-    100 * (pop / @opponent.apdp(season: @game.season))
+    100.0 * (pop / @opponent.apdp(season: @game.season))
   end
 
   def set_dpr_object
