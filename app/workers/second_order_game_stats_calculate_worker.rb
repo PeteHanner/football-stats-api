@@ -30,7 +30,8 @@ class SecondOrderGameStatsCalculateWorker
     Stat.find_or_initialize_by(
       game_id: @game.id,
       name: "dpr",
-      team_id: @team.id
+      team_id: @team.id,
+      season: @game.season
     )
   end
 
@@ -38,7 +39,8 @@ class SecondOrderGameStatsCalculateWorker
     Stat.find_or_initialize_by(
       game_id: @game.id,
       name: "opr",
-      team_id: @team.id
+      team_id: @team.id,
+      season: @game.season
     )
   end
 
