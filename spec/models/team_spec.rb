@@ -128,10 +128,10 @@ RSpec.describe Team, type: :model do
 
     it "only calculates the specified season" do
       team = create(:team)
-      allow_any_instance_of(Team).to receive(:apop).with(season: 2000, overwrite: true).and_return(5)
-      allow_any_instance_of(Team).to receive(:apdp).with(season: 2000, overwrite: true).and_return(3)
-      allow_any_instance_of(Team).to receive(:apop).with(season: 2001, overwrite: true).and_return(6)
-      allow_any_instance_of(Team).to receive(:apdp).with(season: 2001, overwrite: true).and_return(3)
+      allow_any_instance_of(Team).to receive(:apop).with(season: 2000).and_return(5)
+      allow_any_instance_of(Team).to receive(:apdp).with(season: 2000).and_return(3)
+      allow_any_instance_of(Team).to receive(:apop).with(season: 2001).and_return(6)
+      allow_any_instance_of(Team).to receive(:apdp).with(season: 2001).and_return(3)
 
       expect(team.appd(season: 2000)).to eq(2)
       expect(team.appd(season: 2001)).to eq(3)
@@ -153,6 +153,8 @@ RSpec.describe Team, type: :model do
 
       expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(1.5)
 
+      team.apop(season: 2000, overwrite: true)
+      team.apdp(season: 2000, overwrite: true)
       team.appd(season: 2000, overwrite: true)
 
       expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(2)
