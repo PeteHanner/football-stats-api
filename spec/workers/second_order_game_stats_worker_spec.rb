@@ -1,4 +1,5 @@
-require 'rails_helper'
+require "rails_helper"
+
 RSpec.describe SecondOrderGameStatsWorker, type: :worker do
   describe "#perform" do
     it "logs error and returns safely if team not found" do
@@ -11,7 +12,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
 
     it "calls SecondOrderGameStatsCalculateWorker async for each game in a team's season" do
       team = create(:team)
-      create_list(:stat, 3, team: team, game: create(:game, season: 2000))
+      3.times { create(:stat, team: team, game: create(:game, season: 2000, away_team_name: Faker::University.name)) }
       create(:stat, team: team, game: create(:game, season: 2001))
 
       expect(SecondOrderGameStatsCalculateWorker).to receive(:perform_async).exactly(3).times
