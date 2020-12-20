@@ -12,7 +12,7 @@ class FirstOrderSeasonStatsWorker
       team = Team.find_by(id: id)
 
       if team.blank?
-        Rails.logger.error("#{self.class.name} unable to find team of ID #{team_id}")
+        Rails.logger.error("#{self.class.name} unable to find team of ID #{id}")
         next
       end
 
