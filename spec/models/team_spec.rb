@@ -241,6 +241,40 @@ RSpec.describe Team, type: :model do
     end
   end
 
+  describe "#calculate_adpr" do
+    it "averages the team's DPR accross a season" do
+      team = create(:team)
+      create(:stat, team: team, name: "dpr", season: 2000, value: 120)
+      create(:stat, team: team, name: "dpr", season: 2000, value: 90)
+
+      expect(team.calculate_adpr(2000)).to eq(105)
+    end
+
+    it "returns 0 if the team hasn't played any games that season" do
+      team = create(:team)
+
+      expect(team.games.count).to eq(0)
+      expect(team.calculate_adpr(2000)).to eq(0)
+    end
+  end
+
+  describe "#calculate_aopr" do
+    it "averages the team's OPR accross a season" do
+      team = create(:team)
+      create(:stat, team: team, name: "opr", season: 2000, value: 120)
+      create(:stat, team: team, name: "opr", season: 2000, value: 90)
+
+      expect(team.calculate_aopr(2000)).to eq(105)
+    end
+
+    it "returns 0 if the team hasn't played any games that season" do
+      team = create(:team)
+
+      expect(team.games.count).to eq(0)
+      expect(team.calculate_aopr(2000)).to eq(0)
+    end
+  end
+
   describe "#calculate_apdp" do
     it "averages the team's PDP across a season" do
       team = create(:team)
@@ -248,6 +282,13 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pdp", season: 2000, value: 3)
 
       expect(team.calculate_apdp(2000)).to eq(4)
+    end
+
+    it "returns 0 if the team hasn't played any games that season" do
+      team = create(:team)
+
+      expect(team.games.count).to eq(0)
+      expect(team.calculate_apdp(2000)).to eq(0)
     end
   end
 
@@ -258,6 +299,13 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
 
       expect(team.calculate_apop(2000)).to eq(4)
+    end
+
+    it "returns 0 if the team hasn't played any games that season" do
+      team = create(:team)
+
+      expect(team.games.count).to eq(0)
+      expect(team.calculate_apop(2000)).to eq(0)
     end
   end
 
@@ -301,6 +349,30 @@ RSpec.describe Team, type: :model do
       team.adpr(season: 2000, overwrite: true)
       team.cpr(season: 2000, overwrite: true)
       expect(Rails.cache.read("#{team.name.parameterize}/cpr/2000")).to eq(100)
+    end
+  end
+
+  describe "#dpr_over_season" do
+    it "returns an array of a team's DPR for only the season provided" do
+      team = create(:team)
+      create(:stat, team: team, name: "dpr", season: 2000)
+      create(:stat, team: team, name: "dpr", season: 2000)
+      excluded_stat = create(:stat, team: team, name: "dpr", season: 2001)
+
+      expect(team.dpr_over_season(2000).length).to eq(2)
+      expect(team.dpr_over_season(2000)).not_to include(excluded_stat)
+    end
+  end
+
+  describe "#opr_over_season" do
+    it "returns an array of a team's OPR for only the season provided" do
+      team = create(:team)
+      create(:stat, team: team, name: "opr", season: 2000)
+      create(:stat, team: team, name: "opr", season: 2000)
+      excluded_stat = create(:stat, team: team, name: "opr", season: 2001)
+
+      expect(team.opr_over_season(2000).length).to eq(2)
+      expect(team.opr_over_season(2000)).not_to include(excluded_stat)
     end
   end
 
