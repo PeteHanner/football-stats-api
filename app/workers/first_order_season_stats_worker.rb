@@ -4,11 +4,17 @@ class FirstOrderSeasonStatsWorker
 
   def perform(season, *team_ids)
     team_ids.each do |id|
-      next unless id.instance_of?(Integer)
+      unless id.instance_of?(Integer)
+        Rails.logger.error("#{self.class} passed non-integer argument for team_id: #{id}")
+        next
+      end
 
       team = Team.find_by(id: id)
 
-      next unless team.present?
+      if team.blank?
+        Rails.logger.error("SecondOrderGameStatsWorker unable to find team of ID #{team_id}")
+        next
+      end
 
       team.apdp(season: season, overwrite: true)
       team.apop(season: season, overwrite: true)

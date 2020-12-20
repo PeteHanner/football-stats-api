@@ -10,17 +10,9 @@ class SecondOrderGameStatsCalculateWorker
     SecondOrderGameStatsWorker.perform_async(@game.season, @opponent.id)
   end
 
-  private
-
-  def calculate_dpr_value
-    # Defensive Performance Ratio
-    # By what percentage was your defense better/worse than the others your opponent has faced on the season?
-    pdp = Stat.find_by(name: "pdp", game_id: @game.id, team_id: @team.id).value
-
-    return 10000.0 if pdp == 0
-
-    100.0 * (@opponent.apop(season: @game.season) / pdp)
-  end
+    if @team.blank? || @game.blank? || @opponent.blank?
+      raise "#{self.class} encountered error with arguments team_id #{team_id}, game_id #{game_id}"
+    end
 
   def calculate_opr_value
     # Offensive Performance Ratio
