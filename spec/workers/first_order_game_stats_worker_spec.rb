@@ -48,7 +48,7 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
 
     it "calls FirstOrderSeasonStatsWorker when complete" do
       home_team = create(:team)
-      away_team = create(:team, :opponent)
+      away_team = create(:team)
       game = create(:game, home_team_name: home_team.name, away_team_name: away_team.name)
 
       expect(FirstOrderSeasonStatsWorker).to receive(:perform_async).with(game.season, home_team.id, away_team.id)
