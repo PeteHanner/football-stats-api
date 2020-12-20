@@ -22,7 +22,7 @@ class GameCreateWorker
       game.save!
       FirstOrderGameStatsWorker.perform_async(game.id)
     rescue => exception
-      Rails.logger.error("#{self.class.name} encountered error: #{exception}\n\nWhile building game from API data:\n\n#{game_data}")
+      raise "#{self.class.name} encountered error: #{exception}\n\nWhile building game from API data:\n\n#{game_data}"
     end
   end
 

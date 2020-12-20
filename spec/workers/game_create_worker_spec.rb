@@ -34,14 +34,24 @@ RSpec.describe GameCreateWorker, type: :worker do
       expect(Game.all.count).to eq(2)
     end
 
-    it "logs error and safely exits if API query fails" do
+    it "raises error if API query fails" do
       games = load_json_file("spec/factories/games_api_response.json")
       response = OpenStruct.new({code: 500, body: ""})
+      error_msg = "#{described_class.name} received response code 500 for API game ID #{games[0]["id"]}"
       allow(HTTParty).to receive(:get).and_return(response)
 
-      expect(Rails.logger).to receive(:error).with("Drive data query for API game ID #{games[0]["id"]} returned response code 500")
+      expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(error_msg)
+    end
 
-      GameCreateWorker.new.perform(games[0])
+    it "raises error if unable to save game" do
+      games = load_json_file("spec/factories/games_api_response.json")
+      drives = File.read("spec/factories/drive_api_response.json")
+      response = OpenStruct.new({code: 200, body: drives})
+      allow(HTTParty).to receive(:get).and_return(response)
+      allow_any_instance_of(Game).to receive(:save!).and_raise(StandardError, "ERROR MESSAGE")
+      error_msg = "#{described_class.name} encountered error: ERROR MESSAGE\n\nWhile building game from API data:\n\n#{games[0]}"
+
+      expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(error_msg)
     end
   end
 end
