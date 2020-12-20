@@ -4,13 +4,14 @@ class SecondOrderGameStatsWorker
 
   def perform(team_id, game_id)
     @team = Team.find_by(id: team_id)
-    @opponent = set_opponent
-    @game = Game.find_by(id: game_id)
-    @season = @game&.season
+    raise "#{self.class.name} unable to find team ID #{team_id}" if @team.blank?
 
-    if @team.blank? || @game.blank? || @opponent.blank?
-      raise "#{self.class.name} encountered error with arguments team_id #{team_id}, game_id #{game_id}"
-    end
+    @game = Game.find_by(id: game_id)
+    raise "#{self.class.name} unable to find game ID #{game_id}" if @game.blank?
+    @season = @game.season
+
+    @opponent = set_opponent
+    raise "#{self.class.name} unable to set opponent of team ID #{team_id} on game ID #{game_id}" if @opponent.blank?
 
     # Team of `team_id` just had APOP/APDP recalculated
     # These stats needed to (re)calculate *opponent's* 2.o. game stats
@@ -20,13 +21,13 @@ class SecondOrderGameStatsWorker
   private
 
   def calculate_dpr_value
-    pdp = Stat.find_by(name: "pdp", game_id: @game.id, season: @season, team_id: @opponent.id)
+    pdp = Stat.find_by(name: "pdp", game_id: @game.id, season: @season, team_id: @opponent.id).value
     return 1000.0 if pdp == 0
-    100 * (@team.apdp(season: @season) / pdp)
+    100 * (@team.apop(season: @season) / pdp)
   end
 
   def calculate_opr_value
-    pop = Stat.find_by(name: "pop", game_id: @game.id, season: @season, team_id: @opponent.id)
+    pop = Stat.find_by(name: "pop", game_id: @game.id, season: @season, team_id: @opponent.id).value
     return 1000.0 if (team_apdp = @team.apdp(season: @season)) == 0
     100 * (pop / team_apdp)
   end
@@ -68,7 +69,7 @@ class SecondOrderGameStatsWorker
       @opponent.adpr(season: @season, overwrite: true)
       @opponent.cpr(season: @season, overwrite: true)
     rescue => exception
-      Rails.logger.error("#{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}")
+      raise "#{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}"
     end
   end
 end

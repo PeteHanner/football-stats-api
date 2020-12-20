@@ -21,7 +21,7 @@ RSpec.describe GameImportWorker, type: :worker do
       GameImportWorker.new.perform
     end
 
-    it "raises error and re-queues if API query fails" do
+    it "raises error if API query fails" do
       response = OpenStruct.new({code: 500, body: ""})
       allow(HTTParty).to receive(:get).and_return(response)
 

@@ -2,21 +2,17 @@ FactoryBot.define do
   factory :game do
     api_ref { 401110723 }
     away_team_drives { 29 }
-    away_team_name { Faker::University.name }
+    away_team_name { Faker::University.unique.name }
     away_team_score { 20 }
     home_team_drives { 0 }
-    home_team_name { Faker::University.name }
+    home_team_name { Faker::University.unique.name }
     home_team_score { 24 }
     season { 2019 }
     week { 1 }
   end
 
   factory :team do
-    name { Faker::University.name }
-
-    trait :opponent do
-      name { Faker::University.name }
-    end
+    sequence(:name) { |n| "#{Faker::University.name} #{n}" }
   end
 
   factory :stat do
