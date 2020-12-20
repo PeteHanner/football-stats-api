@@ -21,7 +21,7 @@ class FirstOrderSeasonStatsWorker
       team.appd(season: season, overwrite: true)
 
       team.games.where(season: season).each do |game|
-        SecondOrderGameStatsWorker.perform_async(team_id, game.id)
+        SecondOrderGameStatsWorker.perform_async(team.id, game.id)
       end
     end
   end
