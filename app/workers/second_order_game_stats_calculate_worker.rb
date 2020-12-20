@@ -65,6 +65,8 @@ class SecondOrderGameStatsCalculateWorker
     begin
       opr.save!
       dpr.save!
+      @team.aopr(season: @game.season, overwrite: true)
+      @team.adpr(season: @game.season, overwrite: true)
     rescue => exception
       Rails.logger.error("SecondOrderGameStatsWorker encountered error processing stats for team #{@team.id} on game #{@game.id}: #{exception}")
     end

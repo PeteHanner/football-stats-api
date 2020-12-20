@@ -6,7 +6,7 @@ class Team < ApplicationRecord
     # Average Defensive Performance Ratio
     # Sum of all DPR scores ÷ games played
     # By what percentage is your defense usually better than all your opponents' faced defenses?
-    cache_key = "#{name.parameterize}/aopr/#{season}"
+    cache_key = "#{name.parameterize}/adpr/#{season}"
     Rails.cache.fetch(cache_key, force: overwrite, expires_in: 6.hours) do
       calculate_adpr(season)
     end
@@ -47,7 +47,7 @@ class Team < ApplicationRecord
     # By how much do you win/lose your games on average?
     cache_key = "#{name.parameterize}/appd/#{season}"
     Rails.cache.fetch(cache_key, force: overwrite, expires_in: 6.hours) do
-      apop(season: season, overwrite: true) - apdp(season: season, overwrite: true)
+      apop(season: season) - apdp(season: season)
     end
   end
 
@@ -73,6 +73,13 @@ class Team < ApplicationRecord
     total_pop = pop_over_season(season).pluck(:value).sum
     games_played = pop_over_season(season).count
     total_pop / games_played
+  end
+
+  def cpr(season:, overwrite: false)
+    cache_key = "#{name.parameterize}/cpr/#{season}"
+    Rails.cache.fetch(cache_key, force: overwrite, expires_in: 6.hours) do
+      (aopr(season: season) + adpr(season: season)) / 2
+    end
   end
 
   def dpr_over_season(season)
