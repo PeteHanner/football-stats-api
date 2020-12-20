@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :stats
-  resources :games
-  resources :teams
+  get "/seasons/:id", to: "teams#show"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
