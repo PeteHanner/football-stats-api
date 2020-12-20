@@ -20,10 +20,11 @@ class GameCreateWorker
 
     begin
       game.save!
-      FirstOrderGameStatsWorker.perform_async(game.id)
     rescue => exception
       raise "#{self.class.name} encountered error: #{exception}\n\nWhile building game from API data:\n\n#{game_data}"
     end
+
+    FirstOrderGameStatsWorker.perform_async(game.id)
   end
 
   private

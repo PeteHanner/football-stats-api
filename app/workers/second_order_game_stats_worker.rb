@@ -68,12 +68,12 @@ class SecondOrderGameStatsWorker
     begin
       opr.save!
       dpr.save!
-
-      @opponent.aopr(season: @season, overwrite: true)
-      @opponent.adpr(season: @season, overwrite: true)
-      @opponent.cpr(season: @season, overwrite: true)
     rescue => exception
       raise "#{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}"
     end
+
+    @opponent.aopr(season: @season, overwrite: true)
+    @opponent.adpr(season: @season, overwrite: true)
+    @opponent.cpr(season: @season, overwrite: true)
   end
 end
