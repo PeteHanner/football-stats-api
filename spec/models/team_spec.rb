@@ -227,6 +227,8 @@ RSpec.describe Team, type: :model do
 
       create(:stat, team: team, name: "pop", season: 2000, value: 5)
       create(:stat, team: team, name: "pdp", season: 2000, value: 2)
+      team.apop(season: 2000, overwrite: true)
+      team.apdp(season: 2000, overwrite: true)
       team.appd(season: 2000)
 
       expect(Rails.cache.read("#{team.name.parameterize}/appd/2000")).to eq(1.5)
@@ -256,6 +258,49 @@ RSpec.describe Team, type: :model do
       create(:stat, team: team, name: "pop", season: 2000, value: 3)
 
       expect(team.calculate_apop(2000)).to eq(4)
+    end
+  end
+
+  describe "#cpr" do
+    let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+    let(:cache) { Rails.cache }
+
+    before do
+      allow(Rails).to receive(:cache).and_return(memory_store)
+      Rails.cache.clear
+    end
+
+    it "averages AOPR and ADPR for a season" do
+      team = create(:team)
+      create(:stat, team: team, season: 2000, name: "opr", value: 120)
+      create(:stat, team: team, season: 2000, name: "dpr", value: 100)
+
+      expect(team.cpr(season: 2000)).to eq(110)
+    end
+
+    it "returns a cached value unless missing or overwritten" do
+      team = create(:team)
+      create(:stat, team: team, season: 2000, name: "opr", value: 120)
+      create(:stat, team: team, season: 2000, name: "dpr", value: 100)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/cpr/2000")).to eq(nil)
+
+      team.cpr(season: 2000)
+
+      expect(Rails.cache.read("#{team.name.parameterize}/cpr/2000")).to eq(110)
+
+      create(:stat, team: team, season: 2000, name: "opr", value: 100)
+      create(:stat, team: team, season: 2000, name: "dpr", value: 80)
+
+      team.aopr(season: 2000, overwrite: true)
+      team.adpr(season: 2000, overwrite: true)
+      team.cpr(season: 2000)
+      expect(Rails.cache.read("#{team.name.parameterize}/cpr/2000")).to eq(110)
+
+      team.aopr(season: 2000, overwrite: true)
+      team.adpr(season: 2000, overwrite: true)
+      team.cpr(season: 2000, overwrite: true)
+      expect(Rails.cache.read("#{team.name.parameterize}/cpr/2000")).to eq(100)
     end
   end
 

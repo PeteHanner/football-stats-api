@@ -75,6 +75,13 @@ class Team < ApplicationRecord
     total_pop / games_played
   end
 
+  def cpr(season:, overwrite: false)
+    cache_key = "#{name.parameterize}/cpr/#{season}"
+    Rails.cache.fetch(cache_key, force: overwrite, expires_in: 6.hours) do
+      (aopr(season: season) + adpr(season: season)) / 2
+    end
+  end
+
   def dpr_over_season(season)
     stats.dpr.where(season: season)
   end
