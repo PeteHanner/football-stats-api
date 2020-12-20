@@ -13,6 +13,17 @@ RSpec.describe GameCreateWorker, type: :worker do
       expect(Game.all.count).to eq(1)
     end
 
+    it "calls FirstOrderGameStatsWorker on the game once created" do
+      games = load_json_file("spec/factories/games_api_response.json")
+      drives = File.read("spec/factories/drive_api_response.json")
+      response = OpenStruct.new({code: 200, body: drives})
+      allow(HTTParty).to receive(:get).and_return(response)
+
+      expect(FirstOrderGameStatsWorker).to receive(:perform_async)
+
+      GameCreateWorker.new.perform(games[0])
+    end
+
     it "returns if the game score is not yet present" do
       incomplete_data = {"foo": "bar"}
 
