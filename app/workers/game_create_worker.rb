@@ -16,7 +16,7 @@ class GameCreateWorker
     raise "#{self.class} received response code #{response.code} for API game ID #{game_data["id"]}" unless response.code == 200
 
     drives = JSON.parse(response.body)
-    game.home_team_drives, game.away_team_drives = get_drive_breakdown(drive_data: drives, home_team_name: game_data["home_team"])
+    game.home_team_drives, game.away_team_drives = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
 
     begin
       game.save!
@@ -40,7 +40,7 @@ class GameCreateWorker
     )
   end
 
-  def get_drive_breakdown(drive_data:, home_team_name:)
+  def get_drive_counts(drive_data:, home_team_name:)
     home_team_drives = drive_data.pluck("offense").count(home_team_name)
     away_team_drives = drive_data.count - home_team_drives
     [home_team_drives, away_team_drives]
