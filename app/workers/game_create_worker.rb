@@ -13,7 +13,7 @@ class GameCreateWorker
     query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
     response = HTTParty.get(query_string)
 
-    raise "#{self.class} received response code #{response.code} for API game ID #{game_data["id"]}" unless response.code == 200
+    raise "#{self.class.name} received response code #{response.code} for API game ID #{game_data["id"]}" unless response.code == 200
 
     drives = JSON.parse(response.body)
     game.home_team_drives, game.away_team_drives = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
@@ -22,7 +22,7 @@ class GameCreateWorker
       game.save!
       FirstOrderGameStatsWorker.perform_async(game.id)
     rescue => exception
-      Rails.logger.error("#{self.class} encountered error: #{exception}\n\nWhile building game from API data:\n\n#{game_data}")
+      Rails.logger.error("#{self.class.name} encountered error: #{exception}\n\nWhile building game from API data:\n\n#{game_data}")
     end
   end
 

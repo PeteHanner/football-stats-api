@@ -8,7 +8,7 @@ class SecondOrderGameStatsWorker
     @opponent = set_opponent
 
     if @team.blank? || @game.blank? || @opponent.blank?
-      raise "#{self.class} encountered error with arguments team_id #{team_id}, game_id #{game_id}"
+      raise "#{self.class.name} encountered error with arguments team_id #{team_id}, game_id #{game_id}"
     end
 
     write_or_overwrite_opponent_stats
@@ -37,7 +37,7 @@ class SecondOrderGameStatsWorker
       @opponent.adpr(season: @game.season, overwrite: true)
       @opponent.cpr(season: @game.season, overwrite: true)
     rescue => exception
-      Rails.logger.error("#{self.class} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}")
+      Rails.logger.error("#{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}")
     end
   end
 end
