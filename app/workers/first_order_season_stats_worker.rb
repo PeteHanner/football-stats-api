@@ -20,7 +20,9 @@ class FirstOrderSeasonStatsWorker
       team.apop(season: season, overwrite: true)
       team.appd(season: season, overwrite: true)
 
-      SecondOrderGameStatsWorker.perform_async(season, team.id)
+      team.games.where(season: season).each do |game|
+        SecondOrderGameStatsWorker.perform_async(team_id, game.id)
+      end
     end
   end
 end
