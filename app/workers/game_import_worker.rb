@@ -11,10 +11,7 @@ class GameImportWorker
     query_string = "https://api.collegefootballdata.com/games?year=#{@season}&week=#{@week}"
     response = HTTParty.get(query_string)
 
-    unless response.code == 200
-      Rails.logger.error "Game data request for #{@season} season week #{@week} returned response code #{response.code}"
-      return false
-    end
+    raise "#{self.class.name} received response code #{response.code} for #{@season} season week #{@week}" unless response.code == 200
 
     games_data = JSON.parse(response.body)
     games_data.each do |game_data|

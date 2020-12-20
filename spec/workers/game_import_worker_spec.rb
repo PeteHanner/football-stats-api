@@ -21,13 +21,12 @@ RSpec.describe GameImportWorker, type: :worker do
       GameImportWorker.new.perform
     end
 
-    it "logs error and safely exits if API query fails" do
+    it "raises error if API query fails" do
       response = OpenStruct.new({code: 500, body: ""})
       allow(HTTParty).to receive(:get).and_return(response)
 
-      expect(Rails.logger).to receive(:error).with("Game data request for 2000 season week 1 returned response code 500")
-
-      GameImportWorker.new.perform(2000, 1)
+      error_msg = "#{described_class.name} received response code 500 for 2000 season week 1"
+      expect { GameImportWorker.new.perform(2000, 1) }.to raise_error(error_msg)
     end
   end
 end

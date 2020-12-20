@@ -4,7 +4,7 @@ RSpec.describe FirstOrderSeasonStatsWorker, type: :worker do
   describe "#perform" do
     it "recalculates APOP and APDP for each team passed" do
       team1 = create(:team)
-      team2 = create(:team, :opponent)
+      team2 = create(:team)
       allow_any_instance_of(Team).to receive(:calculate_apdp).and_return(2)
       allow_any_instance_of(Team).to receive(:calculate_apop).and_return(3)
 
@@ -39,11 +39,13 @@ RSpec.describe FirstOrderSeasonStatsWorker, type: :worker do
 
     it "calls SecondOrderGameStatsWorker async on each team when complete" do
       team1 = create(:team)
-      team2 = create(:team, :opponent)
+      team2 = create(:team)
+      2.times { create(:stat, season: 2000, team: team1) }
+      2.times { create(:stat, season: 2000, team: team2) }
       allow_any_instance_of(Team).to receive(:calculate_apdp).and_return(2)
       allow_any_instance_of(Team).to receive(:calculate_apop).and_return(3)
 
-      expect(SecondOrderGameStatsWorker).to receive(:perform_async).exactly(2).times
+      expect(SecondOrderGameStatsWorker).to receive(:perform_async).exactly(4).times
 
       FirstOrderSeasonStatsWorker.new.perform(2000, team1.id, team2.id)
     end
