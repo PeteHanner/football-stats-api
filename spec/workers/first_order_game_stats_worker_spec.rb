@@ -1,4 +1,5 @@
-require 'rails_helper'
+require "rails_helper"
+
 RSpec.describe FirstOrderGameStatsWorker, type: :worker do
   describe "#perform" do
     it "creates POP and PDP for home and away teams" do
@@ -56,12 +57,11 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
       FirstOrderGameStatsWorker.new.perform(game.id)
     end
 
-    it "logs error and returns safely if no game found" do
+    it "raises error no game found" do
       bad_id = Game.all.count + 1
+      error_msg = "#{described_class.name} unable to find Game ID #{bad_id}"
 
-      expect(Rails.logger).to receive(:error).with("FirstOrderGameStatsWorker unable to find Game ID #{bad_id}")
-
-      FirstOrderGameStatsWorker.new.perform(bad_id)
+      expect { FirstOrderGameStatsWorker.new.perform(bad_id) }.to raise_error(error_msg)
     end
   end
 end

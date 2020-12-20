@@ -5,7 +5,7 @@ class FirstOrderGameStatsWorker
   def perform(game_id)
     @game = Game.find_by(id: game_id)
 
-    raise "FirstOrderGameStatsWorker unable to find Game ID #{game_id}" if @game.nil?
+    raise "#{self.class.name} unable to find Game ID #{game_id}" if @game.nil?
 
     @home_team = Team.find_or_create_by(name: @game.home_team_name)
     @away_team = Team.find_or_create_by(name: @game.away_team_name)
