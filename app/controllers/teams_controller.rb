@@ -5,7 +5,7 @@ class TeamsController < ApplicationController
 
     team_stats = Team.all_with_games_in_season(season)
 
-    render json: team_stats, each_serializer: TeamSerializer, season: season
+    render json: team_stats, season: season
   end
 
   private
