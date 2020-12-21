@@ -15,7 +15,8 @@ class SecondOrderGameStatsWorker
 
     # Team of `team_id` just had APOP/APDP recalculated
     # These stats needed to (re)calculate *opponent's* 2.o. game stats
-    write_or_overwrite_opponent_stats
+    write_or_overwrite_opponent_game_stats
+    recalculate_opponent_season_stats
   end
 
   private
@@ -34,6 +35,12 @@ class SecondOrderGameStatsWorker
     return 100.0 if pop == 0 && team_apdp == 0
     return 1000.0 if team_apdp == 0
     100 * (pop / team_apdp)
+  end
+
+  def recalculate_opponent_season_stats
+    @opponent.aopr(season: @season, overwrite: true)
+    @opponent.adpr(season: @season, overwrite: true)
+    @opponent.cpr(season: @season, overwrite: true)
   end
 
   def set_opponent
@@ -59,7 +66,7 @@ class SecondOrderGameStatsWorker
     )
   end
 
-  def write_or_overwrite_opponent_stats
+  def write_or_overwrite_opponent_game_stats
     opr = set_opr_object
     dpr = set_dpr_object
     opr.value = calculate_opr_value
@@ -71,9 +78,5 @@ class SecondOrderGameStatsWorker
     rescue => exception
       raise "#{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}"
     end
-
-    @opponent.aopr(season: @season, overwrite: true)
-    @opponent.adpr(season: @season, overwrite: true)
-    @opponent.cpr(season: @season, overwrite: true)
   end
 end
