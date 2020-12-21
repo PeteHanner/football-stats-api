@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
+  describe "Team#all_with_games_in_season" do
+    it "returns an array of only teams that had games in a season" do
+      team1 = create(:team)
+      team2 = create(:team)
+      team3 = create(:team)
+      create(:stat, team: team1, season: 2000, game: create(:game, season: 2000))
+      create(:stat, team: team2, season: 2000, game: create(:game, season: 2000))
+      create(:stat, team: team3, season: 2001, game: create(:game, season: 2001))
+
+      expect(Team.all_with_games_in_season(2000)).to match_array([team1, team2])
+      expect(Team.all_with_games_in_season(2000)).not_to include(team3)
+    end
+  end
+
   describe "#adpr" do
     let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
     let(:cache) { Rails.cache }

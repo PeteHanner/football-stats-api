@@ -2,6 +2,10 @@ class Team < ApplicationRecord
   has_many :stats
   has_many :games, -> { distinct }, through: :stats
 
+  def self.all_with_games_in_season(season)
+    includes(:games).where(games: {season: season}).references(:games)
+  end
+
   def adpr(season:, overwrite: false)
     # Average Defensive Performance Ratio
     # Sum of all DPR scores ÷ games played
