@@ -1,11 +1,11 @@
 class TeamsController < ApplicationController
   def show
-    @season = params[:season].to_i
+    season = params[:season].to_i
     return redirect_to season_path(Game.current_season) if bad_params?
 
-    team_stats = {season: @season}
+    team_stats = Team.all
 
-    render json: team_stats.to_json
+    render json: team_stats, each_serializer: TeamSerializer, season: season
   end
 
   private
