@@ -33,3 +33,4 @@ shortcuts.rb
 todo.md
 stats_outline.md
 coverage
+.env
