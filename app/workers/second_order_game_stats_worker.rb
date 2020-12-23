@@ -71,12 +71,7 @@ class SecondOrderGameStatsWorker
     dpr = set_dpr_object
     opr.value = calculate_opr_value
     dpr.value = calculate_dpr_value
-
-    begin
-      opr.save!
-      dpr.save!
-    rescue => exception
-      raise "ERROR: #{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}"
-    end
+    opr.save
+    dpr.save
   end
 end
