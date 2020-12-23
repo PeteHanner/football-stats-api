@@ -10,16 +10,16 @@ RSpec.describe Stat, type: :model do
       Rails.cache.clear
     end
 
-    it "returns the latest season for which games are available" do
-      create(:game, season: 2000)
-      create(:game, season: 2001)
+    it "returns the latest season for which stats have been calculated" do
+      create(:stat, season: 2000)
+      create(:stat, season: 2001)
 
       expect(Stat.current_season).to eq(2001)
     end
 
     it "returns a cached value if not force overwritten" do
-      create(:game, season: 2000)
-      create(:game, season: 2001)
+      create(:stat, season: 2000)
+      create(:stat, season: 2001)
 
       expect(Rails.cache.read("seasons/current")).to eq(nil)
 
@@ -27,7 +27,7 @@ RSpec.describe Stat, type: :model do
       expect(Rails.cache.read("seasons/current")).to eq(2001)
       expect(Stat.current_season).to eq(2001)
 
-      create(:game, season: 2002)
+      create(:stat, season: 2002)
       Stat.current_season
       expect(Rails.cache.read("seasons/current")).to eq(2001)
 
