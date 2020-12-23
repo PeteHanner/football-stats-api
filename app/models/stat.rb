@@ -9,7 +9,6 @@ class Stat < ApplicationRecord
   scope :opr, -> { where(name: "opr") }
   scope :dpr, -> { where(name: "dpr") }
 
-
   def self.current_season(overwrite: false)
     cache_key = "seasons/current"
     Rails.cache.fetch(cache_key, skip_nil: true, force: overwrite, expires_in: 1.day) do

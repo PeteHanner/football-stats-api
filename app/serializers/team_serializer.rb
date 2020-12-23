@@ -1,5 +1,9 @@
 class TeamSerializer < ActiveModel::Serializer
-  attributes :name, :apop, :apdp, :appd, :aopr, :adpr, :cpr
+  attributes :name, :games_played, :apop, :apdp, :appd, :aopr, :adpr, :cpr
+
+  def games_played
+    object.games.where(season: @instance_options[:season]).count
+  end
 
   def apop
     object.apop(season: @instance_options[:season])
