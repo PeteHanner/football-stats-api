@@ -4,10 +4,6 @@ class Team < ApplicationRecord
 
   def self.all_with_games_in_season(season)
     collection = includes(:games).where(games: {season: season}).references(:games)
-    collection.order(cpr: :desc)
-    if collection.first.cpr == 100
-      collection.order(appd: :desc)
-    end
   end
 
   def adpr(season:, overwrite: false)
