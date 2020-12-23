@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   def show
     season = params[:season].to_i
-    return redirect_to season_path(Game.current_season) if bad_params?
+    return redirect_to season_path(Stat.current_season) if bad_params?
 
     team_stats = Team.all_with_games_in_season(season)
 
