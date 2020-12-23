@@ -87,7 +87,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
 
     it "raises error if team not found" do
       bad_id = Team.all.count + 1
-      error_msg = "#{described_class.name} unable to find team ID #{bad_id}"
+      error_msg = "ERROR: #{described_class.name} unable to find team ID #{bad_id}"
 
       expect { SecondOrderGameStatsWorker.new.perform(bad_id, 1) }.to raise_error(error_msg)
     end
@@ -95,7 +95,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
     it "raises error if game not found" do
       team = create(:team)
       bad_id = Game.all.count + 1
-      error_msg = "#{described_class.name} unable to find game ID #{bad_id}"
+      error_msg = "ERROR: #{described_class.name} unable to find game ID #{bad_id}"
 
       expect { SecondOrderGameStatsWorker.new.perform(team.id, bad_id) }.to raise_error(error_msg)
     end
@@ -103,7 +103,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
     it "raises error if opponent not found" do
       team = create(:team)
       game = create(:game, home_team_name: team.name)
-      error_msg = "#{described_class.name} unable to set opponent of team ID #{team.id} on game ID #{game.id}"
+      error_msg = "ERROR: #{described_class.name} unable to set opponent of team ID #{team.id} on game ID #{game.id}"
 
       expect { SecondOrderGameStatsWorker.new.perform(team.id, game.id) }.to raise_error(error_msg)
     end
@@ -117,7 +117,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       allow_any_instance_of(Team).to receive(:apdp).and_return(2.5)
       allow_any_instance_of(Team).to receive(:apop).and_return(5)
       allow_any_instance_of(Stat).to receive(:save!).and_raise(StandardError, "ERROR MESSAGE")
-      error_msg = "#{described_class.name} encountered error processing stats for teams #{team.id} & #{opponent.id} on game #{game.id}: ERROR MESSAGE"
+      error_msg = "ERROR: #{described_class.name} encountered error processing stats for teams #{team.id} & #{opponent.id} on game #{game.id}: ERROR MESSAGE"
 
       expect { SecondOrderGameStatsWorker.new.perform(team.id, game.id) }.to raise_error(error_msg)
     end

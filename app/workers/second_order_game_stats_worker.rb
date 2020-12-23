@@ -4,14 +4,14 @@ class SecondOrderGameStatsWorker
 
   def perform(team_id, game_id)
     @team = Team.find_by(id: team_id)
-    raise "#{self.class.name} unable to find team ID #{team_id}" if @team.blank?
+    raise "ERROR: #{self.class.name} unable to find team ID #{team_id}" if @team.blank?
 
     @game = Game.find_by(id: game_id)
-    raise "#{self.class.name} unable to find game ID #{game_id}" if @game.blank?
+    raise "ERROR: #{self.class.name} unable to find game ID #{game_id}" if @game.blank?
 
     @season = @game.season
     @opponent = set_opponent
-    raise "#{self.class.name} unable to set opponent of team ID #{team_id} on game ID #{game_id}" if @opponent.blank?
+    raise "ERROR: #{self.class.name} unable to set opponent of team ID #{team_id} on game ID #{game_id}" if @opponent.blank?
 
     # Team of `team_id` just had APOP/APDP recalculated
     # These stats needed to (re)calculate *opponent's* 2.o. game stats
@@ -76,7 +76,7 @@ class SecondOrderGameStatsWorker
       opr.save!
       dpr.save!
     rescue => exception
-      raise "#{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}"
+      raise "ERROR: #{self.class.name} encountered error processing stats for teams #{@team.id} & #{@opponent.id} on game #{@game.id}: #{exception}"
     end
   end
 end

@@ -5,14 +5,14 @@ class FirstOrderSeasonStatsWorker
   def perform(season, *team_ids)
     team_ids.each do |id|
       unless id.instance_of?(Integer)
-        Rails.logger.error("#{self.class.name} passed non-integer argument for team_id: #{id}")
+        Rails.logger.error("ERROR: #{self.class.name} passed non-integer argument for team_id: #{id}")
         next
       end
 
       team = Team.find_by(id: id)
 
       if team.blank?
-        Rails.logger.error("#{self.class.name} unable to find team of ID #{id}")
+        Rails.logger.error("ERROR: #{self.class.name} unable to find team of ID #{id}")
         next
       end
 
