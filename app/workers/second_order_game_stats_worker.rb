@@ -8,8 +8,8 @@ class SecondOrderGameStatsWorker
 
     @game = Game.find_by(id: game_id)
     raise "#{self.class.name} unable to find game ID #{game_id}" if @game.blank?
-    @season = @game.season
 
+    @season = @game.season
     @opponent = set_opponent
     raise "#{self.class.name} unable to set opponent of team ID #{team_id} on game ID #{game_id}" if @opponent.blank?
 
