@@ -3,7 +3,7 @@ class Team < ApplicationRecord
   has_many :games, -> { distinct }, through: :stats
 
   def self.all_with_games_in_season(season)
-    collection = includes(:games).where(games: {season: season}).references(:games)
+    includes(:games).where(games: {season: season}).references(:games)
   end
 
   def adpr(season:, overwrite: false)
