@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Stat, type: :model do
-  describe "Game#current_season" do
+  describe "Stat#current_season" do
     let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
     let(:cache) { Rails.cache }
 
@@ -14,7 +14,7 @@ RSpec.describe Stat, type: :model do
       create(:game, season: 2000)
       create(:game, season: 2001)
 
-      expect(Game.current_season).to eq(2001)
+      expect(Stat.current_season).to eq(2001)
     end
 
     it "returns a cached value if not force overwritten" do
@@ -23,17 +23,17 @@ RSpec.describe Stat, type: :model do
 
       expect(Rails.cache.read("seasons/current")).to eq(nil)
 
-      Game.current_season
+      Stat.current_season
       expect(Rails.cache.read("seasons/current")).to eq(2001)
-      expect(Game.current_season).to eq(2001)
+      expect(Stat.current_season).to eq(2001)
 
       create(:game, season: 2002)
-      Game.current_season
+      Stat.current_season
       expect(Rails.cache.read("seasons/current")).to eq(2001)
 
-      Game.current_season(overwrite: true)
+      Stat.current_season(overwrite: true)
       expect(Rails.cache.read("seasons/current")).to eq(2002)
-      expect(Game.current_season).to eq(2002)
+      expect(Stat.current_season).to eq(2002)
     end
   end
 end
