@@ -23,7 +23,7 @@ class FirstOrderGameStatsWorker
 
     # Points per Offensive Possession
     # How many points did you get on average every time you had the ball?
-    Stat.create(
+    Stat.find_or_create_by(
       game: @game,
       season: @game.season,
       name: "pop",
@@ -31,7 +31,7 @@ class FirstOrderGameStatsWorker
       value: home_team_pop
     )
 
-    Stat.create(
+    Stat.find_or_create_by(
       game: @game,
       season: @game.season,
       name: "pop",
@@ -42,7 +42,7 @@ class FirstOrderGameStatsWorker
     # Points per Defensive Possession
     # How many points did you allow on average every time your opponent had the ball?
     # Same as opponent's POP
-    Stat.create(
+    Stat.find_or_create_by(
       game: @game,
       season: @game.season,
       name: "pdp",
@@ -50,7 +50,7 @@ class FirstOrderGameStatsWorker
       value: home_team_pop
     )
 
-    Stat.create(
+    Stat.find_or_create_by(
       game: @game,
       season: @game.season,
       name: "pdp",
