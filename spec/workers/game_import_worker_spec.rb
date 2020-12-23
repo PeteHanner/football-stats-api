@@ -1,5 +1,5 @@
 require "rails_helper"
-RSpec.describe GameImportWorker, type: :worker do
+RSpec.describe GamesImportWorker, type: :worker do
   describe "#perform" do
     it "calls GameCreateWorker on each game returned from the API query" do
       games = File.read("spec/factories/games_api_response.json")
@@ -9,16 +9,16 @@ RSpec.describe GameImportWorker, type: :worker do
 
       expect(GameCreateWorker).to receive(:perform_async).exactly(number_of_games).times
 
-      GameImportWorker.new.perform(0, 0)
+      GamesImportWorker.new.perform(0, 0)
     end
 
     it "also checks next week + first week of next season if no arguments provided" do
       create(:game, season: 1, week: 1)
 
-      expect(GameImportWorker).to receive(:perform_async).with(1, 2)
-      expect(GameImportWorker).to receive(:perform_async).with(2, 1)
+      expect(GamesImportWorker).to receive(:perform_async).with(1, 2)
+      expect(GamesImportWorker).to receive(:perform_async).with(2, 1)
 
-      GameImportWorker.new.perform
+      GamesImportWorker.new.perform
     end
 
     it "raises error if API query fails" do
@@ -26,7 +26,7 @@ RSpec.describe GameImportWorker, type: :worker do
       allow(HTTParty).to receive(:get).and_return(response)
 
       error_msg = "#{described_class.name} received response code 500 for 2000 season week 1"
-      expect { GameImportWorker.new.perform(2000, 1) }.to raise_error(error_msg)
+      expect { GamesImportWorker.new.perform(2000, 1) }.to raise_error(error_msg)
     end
   end
 end
