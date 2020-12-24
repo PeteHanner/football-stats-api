@@ -25,8 +25,9 @@ RSpec.describe GamesImportWorker, type: :worker do
       response = OpenStruct.new({code: 500, body: ""})
       allow(HTTParty).to receive(:get).and_return(response)
 
-      error_msg = "#{described_class.name} received response code 500 for 2000 season week 1"
-      expect { GamesImportWorker.new.perform(2000, 1) }.to raise_error(error_msg)
+      error_msg = "#{described_class.name} encountered error importing games: Received response code 500 for 2000 season week 1"
+      expect(Rails.logger).to receive(:error).with(error_msg)
+      expect { GamesImportWorker.new.perform(2000, 1) }.to raise_error(RuntimeError)
     end
   end
 end

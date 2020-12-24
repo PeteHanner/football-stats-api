@@ -11,7 +11,6 @@ class SecondOrderGameStatsWorker
 
     @season = @game.season
     @opponent = set_opponent
-    raise "Unable to set opponent of team ID #{team_id} on game ID #{game_id}" if @opponent.blank?
 
     # Team of `team_id` just had APOP/APDP recalculated
     # These stats needed to (re)calculate *opponent's* 2.o. game stats
