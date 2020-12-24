@@ -44,8 +44,7 @@ class SecondOrderGameStatsWorker
   end
 
   def set_opponent
-    name = ([@game.home_team_name, @game.away_team_name] - [@team.name]).first
-    Team.find_by(name: name)
+    ([@game.home_team, @game.away_team] - [@team]).first
   end
 
   def set_dpr_object
