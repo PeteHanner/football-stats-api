@@ -5,7 +5,8 @@ class GameCreateWorker
   sidekiq_options retry: true, unique: :until_executed
 
   def perform(game_data)
-    return if game_data["home_points"].blank? # game exists in API but not played yet
+    read_values = [game_data["home_points"], game_data["away_points"]]
+    return if read_values.any?(&:blank?) # game exists in API but not played yet
     return if Game.find_by(api_ref: game_data["id"]).present? # game has already been imported
 
     query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
@@ -15,7 +16,9 @@ class GameCreateWorker
 
     drives = JSON.parse(response.body)
     game = build_game_object(game_data)
-    game.home_team_drives, game.away_team_drives = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
+    drive_counts = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
+    return if drive_counts.any?(0)
+    game.home_team_drives, game.away_team_drives = drive_counts
 
     game.save!
     FirstOrderGameStatsWorker.perform_async(game.id)
