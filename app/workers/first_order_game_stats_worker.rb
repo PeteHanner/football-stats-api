@@ -4,7 +4,6 @@ class FirstOrderGameStatsWorker
 
   def perform(game_id)
     @game = Game.find_by(id: game_id)
-
     raise "ERROR: #{self.class.name} unable to find Game ID #{game_id}" if @game.nil?
 
     @home_team = @game.home_team
@@ -59,18 +58,18 @@ class FirstOrderGameStatsWorker
 
     home_team_pop = set_home_team_pop_object
     home_team_pop.value = home_team_pop_value
-    home_team_pop.save
+    home_team_pop.save!
 
     away_team_pop = set_away_team_pop_object
     away_team_pop.value = away_team_pop_value
-    away_team_pop.save
+    away_team_pop.save!
 
     home_team_pdp = set_home_team_pdp_object
     home_team_pdp.value = away_team_pop_value
-    home_team_pdp.save
+    home_team_pdp.save!
 
     away_team_pdp = set_away_team_pdp_object
     away_team_pdp.value = home_team_pop_value
-    away_team_pdp.save
+    away_team_pdp.save!
   end
 end
