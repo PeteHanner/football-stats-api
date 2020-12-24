@@ -1,5 +1,41 @@
 [
   {
+    "id": 401110722,
+    "season": 2019,
+    "week": 1,
+    "season_type": "regular",
+    "start_date": "2019-08-31T23:30:00.000Z",
+    "start_time_tbd": null,
+    "neutral_site": true,
+    "conference_game": false,
+    "attendance": 60662,
+    "venue_id": 3687,
+    "venue": "AT&T Stadium",
+    "home_id": 2,
+    "home_team": "Auburn",
+    "home_conference": "SEC",
+    "home_points": 27,
+    "home_line_scores": [
+      3,
+      3,
+      7,
+      14
+    ],
+    "home_post_win_prob": "0.786916801751763",
+    "away_id": 2483,
+    "away_team": "Oregon",
+    "away_conference": "Pac-12",
+    "away_points": 21,
+    "away_line_scores": [
+      14,
+      0,
+      7,
+      0
+    ],
+    "away_post_win_prob": "0.21308319824823696",
+    "excitement_index": "7.05706116539999"
+  },
+  {
     "id": 401110723,
     "season": 2019,
     "week": 1,
@@ -2560,42 +2596,6 @@
     ],
     "away_post_win_prob": "0.0013696581172812916",
     "excitement_index": "1.85899845859999"
-  },
-  {
-    "id": 401110722,
-    "season": 2019,
-    "week": 1,
-    "season_type": "regular",
-    "start_date": "2019-08-31T23:30:00.000Z",
-    "start_time_tbd": null,
-    "neutral_site": true,
-    "conference_game": false,
-    "attendance": 60662,
-    "venue_id": 3687,
-    "venue": "AT&T Stadium",
-    "home_id": 2,
-    "home_team": "Auburn",
-    "home_conference": "SEC",
-    "home_points": 27,
-    "home_line_scores": [
-      3,
-      3,
-      7,
-      14
-    ],
-    "home_post_win_prob": "0.786916801751763",
-    "away_id": 2483,
-    "away_team": "Oregon",
-    "away_conference": "Pac-12",
-    "away_points": 21,
-    "away_line_scores": [
-      14,
-      0,
-      7,
-      0
-    ],
-    "away_post_win_prob": "0.21308319824823696",
-    "excitement_index": "7.05706116539999"
   },
   {
     "id": 401112222,
