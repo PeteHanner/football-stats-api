@@ -67,10 +67,11 @@ class SecondOrderGameStatsWorker
 
   def write_or_overwrite_opponent_game_stats
     opr = set_opr_object
-    dpr = set_dpr_object
     opr.value = calculate_opr_value
-    dpr.value = calculate_dpr_value
     opr.save
+
+    dpr = set_dpr_object
+    dpr.value = calculate_dpr_value
     dpr.save
   end
 end
