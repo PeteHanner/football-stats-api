@@ -24,7 +24,7 @@ RSpec.describe Team, type: :model do
       Rails.cache.clear
     end
 
-    it "returns sum of all OPR scores ÷ number of games played" do
+    it "returns sum of all DPR scores ÷ number of games played" do
       team = create(:team)
       create(:stat, team: team, name: "dpr", value: 5, season: 2000)
       create(:stat, team: team, name: "dpr", value: 3, season: 2000)

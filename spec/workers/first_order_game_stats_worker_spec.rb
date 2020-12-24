@@ -59,9 +59,10 @@ RSpec.describe FirstOrderGameStatsWorker, type: :worker do
 
     it "raises error no game found" do
       bad_id = Game.all.count + 1
-      error_msg = "ERROR: #{described_class.name} unable to find Game ID #{bad_id}"
+      error_msg = "#{described_class.name} encountered error on game ID #{bad_id}: Unable to find Game ID #{bad_id}"
 
-      expect { FirstOrderGameStatsWorker.new.perform(bad_id) }.to raise_error(error_msg)
+      expect(Rails.logger).to receive(:error).with(error_msg)
+      expect { FirstOrderGameStatsWorker.new.perform(bad_id) }.to raise_error(RuntimeError)
     end
   end
 end

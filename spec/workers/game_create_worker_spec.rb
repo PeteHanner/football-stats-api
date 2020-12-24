@@ -48,10 +48,11 @@ RSpec.describe GameCreateWorker, type: :worker do
     it "raises error if API query fails" do
       games = load_json_file("spec/factories/games_api_response.json")
       response = OpenStruct.new({code: 500, body: ""})
-      error_msg = "ERROR: #{described_class.name} received response code 500 for API game ID #{games[0]["id"]}"
       allow(HTTParty).to receive(:get).and_return(response)
+      error_msg = "#{described_class.name} encountered error creating a game: Received response code 500 for API game ID #{games[0]["id"]}\nAPI game data:\n#{games[0]}"
 
-      expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(error_msg)
+      expect(Rails.logger).to receive(:error).with(error_msg)
+      expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(RuntimeError)
     end
 
     it "raises error if unable to save game" do
@@ -60,9 +61,10 @@ RSpec.describe GameCreateWorker, type: :worker do
       response = OpenStruct.new({code: 200, body: drives})
       allow(HTTParty).to receive(:get).and_return(response)
       allow_any_instance_of(Game).to receive(:save!).and_raise(StandardError, "ERROR MESSAGE")
-      error_msg = "ERROR: #{described_class.name} encountered error: ERROR MESSAGE\n\nWhile building game from API data:\n\n#{games[0]}"
+      error_msg = "#{described_class.name} encountered error creating a game: ERROR MESSAGE\nAPI game data:\n#{games[0]}"
 
-      expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(error_msg)
+      expect(Rails.logger).to receive(:error).with(error_msg)
+      expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(StandardError)
     end
   end
 end
