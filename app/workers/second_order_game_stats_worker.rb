@@ -22,7 +22,7 @@ class SecondOrderGameStatsWorker
   private
 
   def calculate_dpr_value
-    pdp = Stat.find_by(name: "pdp", game_id: @game.id, season: @season, team_id: @opponent.id).value
+    pdp = @game.stats.find_by(name: "pdp", team_id: @opponent.id).value
     team_apop = @team.apop(season: @season)
     return 100.0 if pdp == 0 && team_apop == 0
     return 1000.0 if pdp == 0
@@ -30,7 +30,7 @@ class SecondOrderGameStatsWorker
   end
 
   def calculate_opr_value
-    pop = Stat.find_by(name: "pop", game_id: @game.id, season: @season, team_id: @opponent.id).value
+    pop = @game.stats.find_by(name: "pop", team_id: @opponent.id).value
     team_apdp = @team.apdp(season: @season)
     return 100.0 if pop == 0 && team_apdp == 0
     return 1000.0 if team_apdp == 0
