@@ -11,4 +11,18 @@ class Game < ApplicationRecord
   def away_team
     Team.find_or_create_by(name: away_team_name)
   end
+
+  def missing_stats
+    expected_stats = [
+      "dpr",
+      "dpr",
+      "opr",
+      "opr",
+      "pdp",
+      "pdp",
+      "pop",
+      "pop"
+    ]
+    expected_stats - stats.pluck(:name)
+  end
 end
