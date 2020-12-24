@@ -13,7 +13,8 @@ class GameCreateWorker
     query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
     response = HTTParty.get(query_string)
 
-    raise "ERROR: #{self.class.name} received response code #{response.code} for API game ID #{game_data["id"]}" unless response.code == 200
+    error_msg = "ERROR: #{self.class.name} received response code #{response.code} for API game ID #{game_data["id"]}"
+    raise error_msg unless response.code == 200
 
     drives = JSON.parse(response.body)
     game.home_team_drives, game.away_team_drives = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
