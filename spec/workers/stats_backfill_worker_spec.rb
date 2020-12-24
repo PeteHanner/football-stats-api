@@ -18,6 +18,7 @@ RSpec.describe StatsBackfillWorker, type: :worker do
       create(:stat, season: 2000, name: "pdp", game: game, team: team1)
 
       expect(FirstOrderGameStatsWorker).to receive(:perform_async).with(game.id)
+      expect(SecondOrderGameStatsWorker).not_to receive(:perform_async)
 
       StatsBackfillWorker.new.perform(2000)
     end
