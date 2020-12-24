@@ -55,6 +55,18 @@ RSpec.describe GameCreateWorker, type: :worker do
       expect { GameCreateWorker.new.perform(games[0]) }.to raise_error(RuntimeError)
     end
 
+    it "will not create a game if any drive counts calculate to 0 due to incomplete API data" do
+      games = load_json_file("spec/factories/games_api_response.json")
+      drives = File.read("spec/factories/drive_api_response.json")
+      drives.gsub!(/Auburn/, "Broken Team Name")
+      response = OpenStruct.new({code: 200, body: drives})
+      allow(HTTParty).to receive(:get).and_return(response)
+
+      GameCreateWorker.new.perform(games[0])
+
+      expect(Game.all.count).to eq(0)
+    end
+
     it "raises error if unable to save game" do
       games = load_json_file("spec/factories/games_api_response.json")
       drives = File.read("spec/factories/drive_api_response.json")
