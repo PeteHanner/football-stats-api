@@ -17,7 +17,7 @@ class FirstOrderGameStatsWorker
 
   private
 
-  def home_team_pop_object
+  def set_home_team_pop_object
     Stat.find_or_create_by(
       game: @game,
       season: @game.season,
@@ -26,7 +26,7 @@ class FirstOrderGameStatsWorker
     )
   end
 
-  def away_team_pop_object
+  def set_away_team_pop_object
     Stat.find_or_create_by(
       game: @game,
       season: @game.season,
@@ -35,7 +35,7 @@ class FirstOrderGameStatsWorker
     )
   end
 
-  def home_team_pdp_object
+  def set_home_team_pdp_object
     Stat.find_or_create_by(
       game: @game,
       season: @game.season,
@@ -44,7 +44,7 @@ class FirstOrderGameStatsWorker
     )
   end
 
-  def away_team_pdp_object
+  def set_away_team_pdp_object
     Stat.find_or_create_by(
       game: @game,
       season: @game.season,
@@ -57,19 +57,19 @@ class FirstOrderGameStatsWorker
     home_team_pop_value = @game.home_team_score.to_f / @game.home_team_drives.to_f
     away_team_pop_value = @game.away_team_score.to_f / @game.away_team_drives.to_f
 
-    home_team_pop = home_team_pop_object
+    home_team_pop = set_home_team_pop_object
     home_team_pop.value = home_team_pop_value
     home_team_pop.save
 
-    away_team_pop = away_team_pop_object
+    away_team_pop = set_away_team_pop_object
     away_team_pop.value = away_team_pop_value
     away_team_pop.save
 
-    home_team_pdp = home_team_pdp_object
+    home_team_pdp = set_home_team_pdp_object
     home_team_pdp.value = away_team_pop_value
     home_team_pdp.save
 
-    away_team_pdp = away_team_pdp_object
+    away_team_pdp = set_away_team_pdp_object
     away_team_pdp.value = home_team_pop_value
     away_team_pdp.save
   end
