@@ -12,17 +12,13 @@ class Game < ApplicationRecord
     Team.find_or_create_by(name: away_team_name)
   end
 
-  def missing_stats
-    expected_stats = [
-      "dpr",
-      "dpr",
-      "opr",
-      "opr",
-      "pdp",
-      "pdp",
-      "pop",
-      "pop"
-    ]
-    expected_stats - stats.pluck(:name)
+  def missing_first_order_stats?
+    stat_names = stats.pluck(:name)
+    stat_names.count("pop") < 2 || stat_names.count("pdp") < 2
+  end
+
+  def missing_second_order_stats?
+    stat_names = stats.pluck(:name)
+    stat_names.count("opr") < 2 || stat_names.count("dpr") < 2
   end
 end
