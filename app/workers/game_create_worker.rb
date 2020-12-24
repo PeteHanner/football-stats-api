@@ -19,7 +19,7 @@ class GameCreateWorker
     drives = JSON.parse(response.body)
     game.home_team_drives, game.away_team_drives = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
 
-    error_msg = "ERROR: #{self.class.name} encountered error: #{exception}\n\nWhile building game from API data:\n\n#{game_data}"
+    error_msg = "ERROR: #{self.class.name} unable to build game from API data:\n\n#{game_data}"
     Rails.logger.error(error_msg) unless game.save
 
     FirstOrderGameStatsWorker.perform_async(game.id)
