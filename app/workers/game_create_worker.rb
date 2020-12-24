@@ -10,17 +10,18 @@ class GameCreateWorker
 
     query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
     response = HTTParty.get(query_string)
-    error_msg = "ERROR: #{self.class.name} received response code #{response.code} for API game ID #{game_data["id"]}"
+    error_msg = "Received response code #{response.code} for API game ID #{game_data["id"]}"
     raise error_msg unless response.code == 200
 
     drives = JSON.parse(response.body)
     game = build_game_object(game_data)
     game.home_team_drives, game.away_team_drives = get_drive_counts(drive_data: drives, home_team_name: game_data["home_team"])
 
-    error_msg = "ERROR: #{self.class.name} unable to build game from API data:\n\n#{game_data}"
-    raise error_msg unless game.save
-
+    game.save!
     FirstOrderGameStatsWorker.perform_async(game.id)
+  rescue => error
+    Rails.logger.error("#{self.class.name} encountered error creating a game: #{error.message}\nAPI game data:\n#{game_data}")
+    raise error # force re-queue
   end
 
   private

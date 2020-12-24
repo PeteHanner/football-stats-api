@@ -4,7 +4,7 @@ class FirstOrderGameStatsWorker
 
   def perform(game_id)
     @game = Game.find_by(id: game_id)
-    raise "ERROR: #{self.class.name} unable to find Game ID #{game_id}" if @game.nil?
+    raise "Unable to find Game ID #{game_id}" if @game.nil?
 
     @home_team = @game.home_team
     @away_team = @game.away_team
@@ -12,6 +12,9 @@ class FirstOrderGameStatsWorker
     set_pop_and_pdp
 
     FirstOrderSeasonStatsWorker.perform_async(@game.season, @home_team.id, @away_team.id)
+  rescue => error
+    Rails.logger.error("#{self.class.name} encountered error on game ID #{game_id}: #{error.message}")
+    raise error # force re-queue
   end
 
   private

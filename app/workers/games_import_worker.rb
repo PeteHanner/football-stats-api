@@ -11,13 +11,16 @@ class GamesImportWorker
     query_string = "https://api.collegefootballdata.com/games?year=#{@season}&week=#{@week}"
     response = HTTParty.get(query_string)
 
-    error_msg = "ERROR: #{self.class.name} received response code #{response.code} for #{@season} season week #{@week}"
+    error_msg = "Received response code #{response.code} for #{@season} season week #{@week}"
     raise error_msg unless response.code == 200
 
     games_data = JSON.parse(response.body)
     games_data.each do |game_data|
       GameCreateWorker.perform_async(game_data)
     end
+  rescue => error
+    Rails.logger.error("#{self.class.name} encountered error importing games: #{error.message}")
+    raise error # force re-queue
   end
 
   private
