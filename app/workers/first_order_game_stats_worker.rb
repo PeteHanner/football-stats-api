@@ -19,37 +19,37 @@ class FirstOrderGameStatsWorker
 
   def set_home_team_pop_object
     Stat.find_or_create_by(
-      game: @game,
+      game_id: @game.id,
       season: @game.season,
       name: "pop",
-      team: @home_team
+      team_id: @home_team.id
     )
   end
 
   def set_away_team_pop_object
     Stat.find_or_create_by(
-      game: @game,
+      game_id: @game.id,
       season: @game.season,
       name: "pop",
-      team: @away_team
+      team_id: @away_team.id
     )
   end
 
   def set_home_team_pdp_object
     Stat.find_or_create_by(
-      game: @game,
+      game_id: @game.id,
       season: @game.season,
       name: "pdp",
-      team: @away_team
+      team_id: @home_team.id
     )
   end
 
   def set_away_team_pdp_object
     Stat.find_or_create_by(
-      game: @game,
+      game_id: @game.id,
       season: @game.season,
       name: "pdp",
-      team: @home_team,
+      team_id: @away_team.id
     )
   end
 
