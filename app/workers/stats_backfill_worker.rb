@@ -22,12 +22,12 @@ class StatsBackfillWorker
 
   def backfill_teams
     Team.all_with_games_in_season(@season).each do |team|
-      team.adpr(season: @season, overwrite: true) if team.adpr(season: @season).nil?
-      team.aopr(season: @season, overwrite: true) if team.aopr(season: @season).nil?
-      team.apdp(season: @season, overwrite: true) if team.apdp(season: @season).nil?
-      team.apop(season: @season, overwrite: true) if team.apop(season: @season).nil?
-      team.appd(season: @season, overwrite: true) if team.appd(season: @season).nil?
-      team.cpr(season: @season, overwrite: true) if team.cpr(season: @season).nil?
+      team.adpr(season: @season, overwrite: true) if [nil, 0].include? team.adpr(season: @season)
+      team.aopr(season: @season, overwrite: true) if [nil, 0].include? team.aopr(season: @season)
+      team.apdp(season: @season, overwrite: true) if [nil, 0].include? team.apdp(season: @season)
+      team.apop(season: @season, overwrite: true) if [nil, 0].include? team.apop(season: @season)
+      team.appd(season: @season, overwrite: true) if [nil, 0].include? team.appd(season: @season)
+      team.cpr(season: @season, overwrite: true) if [nil, 0].include? team.cpr(season: @season)
     end
   end
 end
