@@ -16,12 +16,12 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       dpr = Stat.find_by(name: "dpr", team: opponent)
 
       expect(opr.present?).to eq(true)
-      expect(opr.value).to eq(120)
+      expect(opr.value).to eq(20)
       expect(dpr.present?).to eq(true)
-      expect(dpr.value).to eq(125)
+      expect(dpr.value).to eq(25)
     end
 
-    it "returns an DPR of 100% if opponent PDP and team APOP are both 0" do
+    it "returns an DPR of 0% above average if opponent PDP and team APOP are both 0" do
       team = create(:team)
       opponent = create(:team)
       game = create(:game, home_team_name: team.name, away_team_name: opponent.name)
@@ -34,10 +34,10 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       dpr = Stat.find_by(name: "dpr", team: opponent)
 
       expect(dpr.present?).to eq(true)
-      expect(dpr.value).to eq(100)
+      expect(dpr.value).to eq(0)
     end
 
-    it "returns an DPR of 1000% if just PDP is 0" do
+    it "returns an DPR of 10 times the opponent's APOP if just PDP is 0" do
       team = create(:team)
       opponent = create(:team)
       game = create(:game, home_team_name: team.name, away_team_name: opponent.name)
@@ -50,30 +50,30 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       dpr = Stat.find_by(name: "dpr", team: opponent)
 
       expect(dpr.present?).to eq(true)
-      expect(dpr.value).to eq(1000)
+      expect(dpr.value).to eq(50)
     end
 
-    it "returns an OPR of 100% if team POP and opponent APDP are both 0" do
+    it "returns an OPR of 0% above average if team POP and opponent APDP are both 0" do
       team = create(:team)
       opponent = create(:team)
       game = create(:game, home_team_name: team.name, away_team_name: opponent.name)
       create(:stat, name: "pop", team: opponent, game: game, value: 0)
       create(:stat, name: "pdp", team: opponent, game: game, value: 4)
       allow_any_instance_of(Team).to receive(:apdp).and_return(0)
-      allow_any_instance_of(Team).to receive(:apop).and_return(5)
+      allow_any_instance_of(Team).to receive(:apop).and_return(5) # key value
 
       SecondOrderGameStatsWorker.new.perform(team.id, game.id)
       opr = Stat.find_by(name: "opr", team: opponent)
 
       expect(opr.present?).to eq(true)
-      expect(opr.value).to eq(100)
+      expect(opr.value).to eq(0)
     end
 
-    it "returns an OPR of 1000% if just opponent APDP is 0" do
+    it "returns an OPR of 10 times the team's POP if just opponent APDP is 0" do
       team = create(:team)
       opponent = create(:team)
       game = create(:game, home_team_name: team.name, away_team_name: opponent.name)
-      create(:stat, name: "pop", team: opponent, game: game, value: 3)
+      create(:stat, name: "pop", team: opponent, game: game, value: 3) # key value
       create(:stat, name: "pdp", team: opponent, game: game, value: 4)
       allow_any_instance_of(Team).to receive(:apdp).and_return(0)
       allow_any_instance_of(Team).to receive(:apop).and_return(5)
@@ -82,7 +82,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       opr = Stat.find_by(name: "opr", team: opponent)
 
       expect(opr.present?).to eq(true)
-      expect(opr.value).to eq(1000)
+      expect(opr.value).to eq(30)
     end
 
     it "raises error if team not found" do
