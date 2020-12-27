@@ -27,7 +27,7 @@ class SecondOrderGameStatsWorker
     pdp = @game.stats.find_by(name: "pdp", team_id: @opponent.id).value
     team_apop = @team.apop(season: @season)
     return 0.0 if pdp == 0 && team_apop == 0
-    return (10 * team_apop) if pdp == 0
+    return (4 * team_apop) if pdp == 0
     (100 * (team_apop / pdp)) - 100
   end
 
@@ -35,7 +35,7 @@ class SecondOrderGameStatsWorker
     pop = @game.stats.find_by(name: "pop", team_id: @opponent.id).value
     team_apdp = @team.apdp(season: @season)
     return 0.0 if pop == 0 && team_apdp == 0
-    return (10 * pop) if team_apdp == 0
+    return (4 * pop) if team_apdp == 0
     (100 * (pop / team_apdp)) - 100
   end
 
