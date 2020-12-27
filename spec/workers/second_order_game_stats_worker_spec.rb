@@ -37,7 +37,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       expect(dpr.value).to eq(0)
     end
 
-    it "returns an DPR of 10 times the opponent's APOP if just PDP is 0" do
+    it "returns an DPR of 4 times the opponent's APOP if just PDP is 0" do
       team = create(:team)
       opponent = create(:team)
       game = create(:game, home_team_name: team.name, away_team_name: opponent.name)
@@ -50,7 +50,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       dpr = Stat.find_by(name: "dpr", team: opponent)
 
       expect(dpr.present?).to eq(true)
-      expect(dpr.value).to eq(50)
+      expect(dpr.value).to eq(20)
     end
 
     it "returns an OPR of 0% above average if team POP and opponent APDP are both 0" do
@@ -69,7 +69,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       expect(opr.value).to eq(0)
     end
 
-    it "returns an OPR of 10 times the team's POP if just opponent APDP is 0" do
+    it "returns an OPR of 4 times the team's POP if just opponent APDP is 0" do
       team = create(:team)
       opponent = create(:team)
       game = create(:game, home_team_name: team.name, away_team_name: opponent.name)
@@ -82,7 +82,7 @@ RSpec.describe SecondOrderGameStatsWorker, type: :worker do
       opr = Stat.find_by(name: "opr", team: opponent)
 
       expect(opr.present?).to eq(true)
-      expect(opr.value).to eq(30)
+      expect(opr.value).to eq(12)
     end
 
     it "raises error if team not found" do
