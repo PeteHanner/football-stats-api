@@ -51,13 +51,15 @@ The current season can be queried with a GET request to https://pete-hanner-foot
 
 #### Offensive Performance Ratio (OPR)
 
-+ Your POP ÷ Your opponent's APDP
++ 100(Your POP ÷ Your opponent's APDP) - 100
 + As a percentage, how did your offense perform in this game compared to all offenses that have faced this opponent?
++ Positive values are % overperforming mutual opponent average, negative values are underperforming.
 
 #### Defensive Performance Ratio (DPR)
 
-+ Your opponent's APOP ÷ Your PDP
++ 100(Your opponent's APOP ÷ Your PDP) - 100
 + As a percentage, how did your defense perform in this game compared to all defenses that have faced this opponent?
++ Positive values are % overperforming mutual opponent average, negative values are underperforming.
 
 
 ### Second-Order Season Stats
