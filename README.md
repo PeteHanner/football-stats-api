@@ -1,4 +1,4 @@
-# College Football Statistics API
+# [College Football Statistics API](https://petehanner.github.io/football-stats/)
 
 ## Intro
 
@@ -13,6 +13,8 @@ A couple disclaimers:
 + Second, I do NOT necessarily think this is the actual best way to evaluate teams. I set out on this project to answer the question "if we used this standard, who would be the best teams according to this standard?", not "who are the best teams period?". I do still believe non-brand name teams get cheated more often than not, but there is something to be said for the eye test and intangibles.
 
 The current season can be queried with a GET request to https://pete-hanner-football-stats-api.herokuapp.com/seasons/2020. Other seasons are not currently available so I could stay within free Heroku DB limits.
+
+[See the project live here](https://petehanner.github.io/football-stats/)
 
 ## The Stats
 
