@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    team = Team.find_by(urlnick: params[:urlnick])
+    team = Team.find_by(urlnick: params[:id])
 
     render json: team
   end
