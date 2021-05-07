@@ -9,6 +9,12 @@ class TeamsController < ApplicationController
     end
   end
 
+  def show
+    team = Team.find_by(urlnick: params[:urlnick])
+
+    render json: team
+  end
+
   private
 
   def bad_params?
