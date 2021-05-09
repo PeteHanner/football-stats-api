@@ -4,8 +4,8 @@ class TeamsController < ApplicationController
     if no_season_games?
       render json: []
     else
-      team_stats = Team.all_with_games_in_season(season)
-      render json: team_stats, season: season
+      teams = Team.all_with_games_in_season(season)
+      render json: TeamBlueprint.render(teams, season: season)
     end
   end
 

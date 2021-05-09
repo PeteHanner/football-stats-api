@@ -31,7 +31,7 @@ gem 'pry-rails'
 gem 'pry-nav'
 gem 'httparty'
 gem 'sidekiq'
-gem 'active_model_serializers'
+gem 'blueprinter'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
