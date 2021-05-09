@@ -10,9 +10,12 @@ class TeamsController < ApplicationController
   end
 
   def show
-    team = Team.find_by(urlnick: params[:id])
-
-    render json: team
+    team = Team.find_by(urlnick: params[:name])
+    if team.blank?
+      render json: []
+    else
+      render json: team
+    end
   end
 
   private

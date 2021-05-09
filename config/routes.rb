@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :teams, only: [:show]
+  resources :teams, only: [:show], param: :name
 
   get "/seasons/:season", to: "teams#index", as: "season"
   get "/seasons/", to: "teams#index"
