@@ -5,17 +5,15 @@ class Game < ApplicationRecord
   validates_presence_of :api_ref
 
   def home_team
-    Team.find_or_create_by(
-      name: home_team_name,
-      urlnick: home_team_name.parameterize
-    )
+    Team.find_or_create_by(name: home_team_name) do |team|
+      team.urlnick = home_team_name.parameterize
+    end
   end
 
   def away_team
-    Team.find_or_create_by(
-      name: away_team_name,
-      urlnick: home_team_name.parameterize
-    )
+    Team.find_or_create_by(name: away_team_name) do |team|
+      team.urlnick = away_team_name.parameterize
+    end
   end
 
   def missing_first_order_stats?
