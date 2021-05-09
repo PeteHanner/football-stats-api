@@ -12,7 +12,7 @@ class SecondOrderGameStatsWorker
     @season = @game.season
     @opponent = set_opponent
 
-    # Team of `team_id` just had APOP/APDP recalculated
+    # Team of `team_id` just had APOP/APDP recalculated in FirstOrderSeasonStatsWorker
     # These stats needed to (re)calculate *opponent's* 2.o. game stats
     write_or_overwrite_opponent_game_stats
     recalculate_opponent_season_stats
@@ -23,20 +23,20 @@ class SecondOrderGameStatsWorker
 
   private
 
-  def calculate_dpr_value
-    opponent_apop = @opponent.apop(season: @season)
-    team_pdp = @game.stats.find_by(name: "pdp", team_id: @team.id).value
-    return 0.0 if opponent_apop == 0 && team_pdp == 0
-    return (4 * opponent_apop) if team_pdp == 0
-    (100 * (opponent_apop / team_pdp)) - 100
+  def calculate_opponent_dpr_value
+    opponent_pdp = @game.stats.find_by(name: "pdp", team_id: @opponent.id).value
+    team_apop = @team.apop(season: @season)
+    return 0.0 if opponent_pdp == 0 && team_apop == 0
+    return (4 * team_apop) if opponent_pdp == 0
+    (100 * (team_apop / opponent_pdp)) - 100
   end
 
-  def calculate_opr_value
-    team_pop = @game.stats.find_by(name: "pop", team_id: @team.id).value
-    opponent_apdp = @opponent.apdp(season: @season)
-    return 0.0 if team_pop == 0 && opponent_apdp == 0
-    return (4 * team_pop) if opponent_apdp == 0
-    (100 * (team_pop / opponent_apdp)) - 100
+  def calculate_opponent_opr_value
+    opponent_pop = @game.stats.find_by(name: "pop", team_id: @opponent.id).value
+    team_apdp = @team.apdp(season: @season)
+    return 0.0 if opponent_pop == 0 && team_apdp == 0
+    return (4 * opponent_pop) if team_apdp == 0
+    (100 * (opponent_pop / team_apdp)) - 100
   end
 
   def recalculate_opponent_season_stats
@@ -68,12 +68,12 @@ class SecondOrderGameStatsWorker
   end
 
   def write_or_overwrite_opponent_game_stats
-    opr = set_opr_object
-    opr.value = calculate_opr_value
-    opr.save!
+    opponent_opr = set_opr_object
+    opponent_opr.value = calculate_opponent_opr_value
+    opponent_opr.save!
 
-    dpr = set_dpr_object
-    dpr.value = calculate_dpr_value
-    dpr.save!
+    opponent_dpr = set_dpr_object
+    opponent_dpr.value = calculate_opponent_dpr_value
+    opponent_dpr.save!
   end
 end
