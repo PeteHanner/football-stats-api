@@ -10,7 +10,13 @@ class GameCreateWorker
     return if Game.find_by(api_ref: game_data["id"]).present? # game has already been imported
 
     query_string = "https://api.collegefootballdata.com/drives?year=#{game_data["season"]}&week=#{game_data["week"]}&team=#{CGI.escape(game_data["home_team"])}"
-    response = HTTParty.get(query_string)
+    auth = "Bearer #{ENV["CFB_DATA_KEY"]}"
+    response = HTTParty.get(
+      query_string,
+      headers: {
+        "Authorization" => auth
+      }
+    )
     error_msg = "Received response code #{response.code} for API game ID #{game_data["id"]}"
     raise error_msg unless response.code == 200
 

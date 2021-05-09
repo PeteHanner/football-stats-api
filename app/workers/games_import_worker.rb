@@ -9,7 +9,13 @@ class GamesImportWorker
     check_current_and_next_weeks if @season.nil? || @week.nil?
 
     query_string = "https://api.collegefootballdata.com/games?year=#{@season}&week=#{@week}"
-    response = HTTParty.get(query_string)
+    auth = "Bearer #{ENV["CFB_DATA_KEY"]}"
+    response = HTTParty.get(
+      query_string,
+      headers: {
+        "Authorization" => auth
+      }
+    )
 
     error_msg = "Received response code #{response.code} for #{@season} season week #{@week}"
     raise error_msg unless response.code == 200
