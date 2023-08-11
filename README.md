@@ -14,6 +14,8 @@ A couple disclaimers:
 
 The current season can be queried with a GET request to https://pete-hanner-football-stats-api.herokuapp.com/seasons/2020. Other seasons are not currently available so I could stay within free Heroku DB limits.
 
+[See the UI frontend code here](https://github.com/PeteHanner/football-stats)
+
 [See the project live here](https://petehanner.github.io/football-stats/)
 
 ## The Stats
